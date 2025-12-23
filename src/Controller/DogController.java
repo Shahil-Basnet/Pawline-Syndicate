@@ -52,11 +52,26 @@ public class DogController {
      * @param dogId
      * @param mode
      * @param dogList linkedList of DogModel
-     * @return true if dog exists or false if dog doesn't exits
+     * @return true if validation is successful, false if it fails
      * @throws
      */
     public boolean validateDog(int dogId, LinkedList<Dog> dogList, String mode){
-        
-        return false;
+        if(mode.equalsIgnoreCase("add")){
+            for(Dog dog: dogList){
+                if(dogId == dog.getId()){
+                    return false;
+                }
+            }
+            return true;
+        }
+        //if mode: update, delete
+        else{
+            for(Dog dog: dogList){
+                if(dogId == dog.getId()){
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

@@ -12,14 +12,15 @@ public class Dog {
     private String name, breedName, adoptionStatus, gender, color;
     
     //Basic details
-    private int age;
+    private int age, id;
     
     private float weight;
     
     //Dates
     private String intakeDate;
     
-    public Dog(String name, String breedName, String adoptionStatus, int age, String intakeDate, String gender, float weight, String color) {
+    public Dog(int id, String name, String breedName, String adoptionStatus, int age, String intakeDate, String gender, float weight, String color) {
+        this.id = id;
         this.name = name;
         this.breedName = breedName;
         this.adoptionStatus = adoptionStatus;
@@ -31,6 +32,10 @@ public class Dog {
     }
     
     //getter methods
+    public int getId() {
+        return id;
+    }
+    
     public String getName() {
         return name;
     }
@@ -64,6 +69,10 @@ public class Dog {
     }
     
     //setter methods
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     public void setName(String name) {
         this.name = name;
     }

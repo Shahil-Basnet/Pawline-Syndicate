@@ -12,16 +12,15 @@ import java.util.LinkedList;
  * @author Shahil
  */
 public class DogController {
-
+    LinkedList<Dog> dogList = new LinkedList<Dog>();
     /**
      * Adds "Dog" object to the linkedList
      *
-     * @param dogList linkedList of DogModel
      * @param dogObject object of dog with its data to add to the linkedList
      * @return true if dog is added, else returns false
      * @throws
      */
-    public boolean addDog(LinkedList<Dog> dogList, Dog dogObject) {
+    public boolean addDog(Dog dogObject) {
         for (Dog dog : dogList) {
             if (dogObject.getId() == dog.getId()) {
                 return false;
@@ -34,12 +33,11 @@ public class DogController {
     /**
      * Deletes existing "Dog" object from the linkedList
      *
-     * @param dogList linkedList of DogModel
      * @param dogId id of the dog to delete
      * @return true if successfully deleted dog, else returns false
      * @throws
      */
-    public boolean deleteDog(LinkedList<Dog> dogList, int dogId) {
+    public boolean deleteDog(int dogId) {
         for (int i = 0; i < dogList.size(); i++) {
             if (dogList.get(i).getId() == dogId) {
                 dogList.remove(i);

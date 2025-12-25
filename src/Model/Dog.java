@@ -17,15 +17,14 @@ public class Dog {
     private float weight;
     
     //Dates
-    private String intakeDate;
+//    private String intakeDate;
     
-    public Dog(int id, String name, String breedName, String adoptionStatus, int age, String intakeDate, String gender, float weight, String color) {
+    public Dog(int id, String name, String breedName, String adoptionStatus, int age, String gender, float weight, String color) {
         this.id = id;
         this.name = name;
         this.breedName = breedName;
         this.adoptionStatus = adoptionStatus;
         this.age = age;
-        this.intakeDate = intakeDate;
         this.gender = gender;
         this.weight = weight;
         this.color = color;
@@ -60,9 +59,9 @@ public class Dog {
         return age;
     }
     
-    public String getIntakeDate() {
-        return intakeDate;
-    }
+//    public String getIntakeDate() {
+//        return intakeDate;
+//    }
     
     public float getWeight() {
         return weight;
@@ -89,10 +88,10 @@ public class Dog {
         this.age = age;
     }
 
-    public void setIntakeDate(String intakeDate) {
-        this.intakeDate = intakeDate;
-    }
-    
+//    public void setIntakeDate(String intakeDate) {
+//        this.intakeDate = intakeDate;
+//    }
+//    
     public void setGender(String gender) {
         this.gender = gender;
     }

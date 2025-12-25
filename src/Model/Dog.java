@@ -9,7 +9,7 @@ package Model;
  * @author Shahil
  */
 public class Dog {
-    private String name, breedName, adoptionStatus, gender, color;
+    private String name, breed, adoptionStatus, gender, color;
     
     //Basic details
     private int age, id;
@@ -19,10 +19,10 @@ public class Dog {
     //Dates
 //    private String intakeDate;
     
-    public Dog(int id, String name, String breedName, String adoptionStatus, int age, String gender, float weight, String color) {
+    public Dog(int id, String name, String breed, String adoptionStatus, int age, String gender, float weight, String color) {
         this.id = id;
         this.name = name;
-        this.breedName = breedName;
+        this.breed = breed;
         this.adoptionStatus = adoptionStatus;
         this.age = age;
         this.gender = gender;
@@ -39,8 +39,8 @@ public class Dog {
         return name;
     }
     
-    public String getBreedName() {
-        return breedName;
+    public String getBreed() {
+        return breed;
     }
     
     public String getAdoptionStatus() {
@@ -76,8 +76,8 @@ public class Dog {
         this.name = name;
     }
 
-    public void setBreedName(String breedName) {
-        this.breedName = breedName;
+    public void setBreed(String breed) {
+        this.breed = breed;
     }
 
     public void setAdoptionStatus(String adoptionStatus) {

@@ -13,7 +13,9 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
@@ -111,9 +113,10 @@ public class DogView extends javax.swing.JFrame {
         colorErrorLabel = new javax.swing.JLabel();
         dogAdoptionStatusLabel = new javax.swing.JLabel();
         adoptionStatusComboBox = new javax.swing.JComboBox<>();
-        updateTableButton = new javax.swing.JButton();
+        updateDogButton = new javax.swing.JButton();
         addDogButton = new javax.swing.JButton();
         clearFieldsButton = new javax.swing.JButton();
+        saveButton = new javax.swing.JButton();
         usersManagementPanel = new javax.swing.JPanel();
         adoptionsPanel = new javax.swing.JPanel();
         historyPanel = new javax.swing.JPanel();
@@ -293,6 +296,7 @@ public class DogView extends javax.swing.JFrame {
 
         dashboardButton.setBackground(new java.awt.Color(102, 102, 102));
         dashboardButton.setFont(new java.awt.Font("Franklin Gothic Book", 0, 14)); // NOI18N
+        dashboardButton.setForeground(new java.awt.Color(220, 220, 220));
         dashboardButton.setText("Dashboard");
         dashboardButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         dashboardButton.setBorderPainted(false);
@@ -307,6 +311,7 @@ public class DogView extends javax.swing.JFrame {
 
         dogsPanelButton.setBackground(new java.awt.Color(102, 102, 102));
         dogsPanelButton.setFont(new java.awt.Font("Franklin Gothic Book", 0, 14)); // NOI18N
+        dogsPanelButton.setForeground(new java.awt.Color(220, 220, 220));
         dogsPanelButton.setText("Dogs");
         dogsPanelButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
         dogsPanelButton.setPreferredSize(new java.awt.Dimension(70, 20));
@@ -429,10 +434,19 @@ public class DogView extends javax.swing.JFrame {
             dogTable.getColumnModel().getColumn(3).setMaxWidth(60);
         }
 
+        refreshTableButton.setBackground(new java.awt.Color(44, 62, 80));
         refreshTableButton.setFont(new java.awt.Font("Franklin Gothic Book", 0, 14)); // NOI18N
-        refreshTableButton.setText("REFRESH");
+        refreshTableButton.setForeground(new java.awt.Color(255, 255, 255));
+        refreshTableButton.setText("Refresh");
+        refreshTableButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refreshTableButtonActionPerformed(evt);
+            }
+        });
 
+        deleteFromListButton.setBackground(new java.awt.Color(44, 62, 80));
         deleteFromListButton.setFont(new java.awt.Font("Franklin Gothic Book", 0, 14)); // NOI18N
+        deleteFromListButton.setForeground(new java.awt.Color(255, 255, 255));
         deleteFromListButton.setText("Delete");
         deleteFromListButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -496,6 +510,7 @@ public class DogView extends javax.swing.JFrame {
         dogIdField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         dogIdField.setForeground(new java.awt.Color(44, 62, 80));
         dogIdField.setActionCommand("Name");
+        dogIdField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 2, true));
         dogIdField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 dogIdFieldActionPerformed(evt);
@@ -520,6 +535,7 @@ public class DogView extends javax.swing.JFrame {
         dogNameField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         dogNameField.setForeground(new java.awt.Color(44, 62, 80));
         dogNameField.setActionCommand("Name");
+        dogNameField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 2, true));
         dogNameField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 dogNameFieldActionPerformed(evt);
@@ -544,6 +560,7 @@ public class DogView extends javax.swing.JFrame {
         dogBreedField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         dogBreedField.setForeground(new java.awt.Color(44, 62, 80));
         dogBreedField.setActionCommand("Breed");
+        dogBreedField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 2, true));
         breedErrorPanel.add(dogBreedField, java.awt.BorderLayout.PAGE_END);
 
         formDetailsPanel.add(breedErrorPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(115, 130, 220, 40));
@@ -562,6 +579,7 @@ public class DogView extends javax.swing.JFrame {
         dogAgeField.setBackground(new java.awt.Color(204, 204, 204));
         dogAgeField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         dogAgeField.setForeground(new java.awt.Color(44, 62, 80));
+        dogAgeField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 2, true));
         ageErrorPanel.add(dogAgeField, java.awt.BorderLayout.PAGE_END);
 
         formDetailsPanel.add(ageErrorPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 40, 220, 40));
@@ -580,6 +598,7 @@ public class DogView extends javax.swing.JFrame {
         dogWeightField.setBackground(new java.awt.Color(204, 204, 204));
         dogWeightField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         dogWeightField.setForeground(new java.awt.Color(44, 62, 80));
+        dogWeightField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 2, true));
         weightErrorPanel.add(dogWeightField, java.awt.BorderLayout.PAGE_END);
 
         formDetailsPanel.add(weightErrorPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 85, 220, 40));
@@ -632,6 +651,7 @@ public class DogView extends javax.swing.JFrame {
         dogColorField.setBackground(new java.awt.Color(204, 204, 204));
         dogColorField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         dogColorField.setForeground(new java.awt.Color(44, 62, 80));
+        dogColorField.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 2, true));
         colorErrorPanel.add(dogColorField, java.awt.BorderLayout.PAGE_END);
 
         colorErrorLabel.setForeground(new java.awt.Color(255, 51, 51));
@@ -649,17 +669,22 @@ public class DogView extends javax.swing.JFrame {
         adoptionStatusComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Adopted", "Unadopted" }));
         formDetailsPanel.add(adoptionStatusComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(776, 96, 116, -1));
 
-        updateTableButton.setFont(new java.awt.Font("Franklin Gothic Book", 0, 14)); // NOI18N
-        updateTableButton.setText("UPDATE");
-        updateTableButton.setPreferredSize(new java.awt.Dimension(136, 32));
-        updateTableButton.addActionListener(new java.awt.event.ActionListener() {
+        updateDogButton.setBackground(new java.awt.Color(44, 62, 80));
+        updateDogButton.setFont(new java.awt.Font("Franklin Gothic Book", 0, 14)); // NOI18N
+        updateDogButton.setForeground(new java.awt.Color(255, 255, 255));
+        updateDogButton.setText("UPDATE");
+        updateDogButton.setFocusable(false);
+        updateDogButton.setPreferredSize(new java.awt.Dimension(136, 32));
+        updateDogButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                updateTableButtonActionPerformed(evt);
+                updateDogButtonActionPerformed(evt);
             }
         });
-        formDetailsPanel.add(updateTableButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(373, 209, -1, -1));
+        formDetailsPanel.add(updateDogButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(379, 209, -1, -1));
 
+        addDogButton.setBackground(new java.awt.Color(44, 62, 80));
         addDogButton.setFont(new java.awt.Font("Franklin Gothic Book", 0, 14)); // NOI18N
+        addDogButton.setForeground(new java.awt.Color(255, 255, 255));
         addDogButton.setText("ADD");
         addDogButton.setPreferredSize(new java.awt.Dimension(136, 32));
         addDogButton.addActionListener(new java.awt.event.ActionListener() {
@@ -669,7 +694,9 @@ public class DogView extends javax.swing.JFrame {
         });
         formDetailsPanel.add(addDogButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(27, 209, -1, -1));
 
+        clearFieldsButton.setBackground(new java.awt.Color(44, 62, 80));
         clearFieldsButton.setFont(new java.awt.Font("Franklin Gothic Book", 0, 14)); // NOI18N
+        clearFieldsButton.setForeground(new java.awt.Color(255, 255, 255));
         clearFieldsButton.setText("CLEAR");
         clearFieldsButton.setPreferredSize(new java.awt.Dimension(136, 32));
         clearFieldsButton.addActionListener(new java.awt.event.ActionListener() {
@@ -678,6 +705,19 @@ public class DogView extends javax.swing.JFrame {
             }
         });
         formDetailsPanel.add(clearFieldsButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(203, 209, -1, -1));
+
+        saveButton.setBackground(new java.awt.Color(44, 62, 80));
+        saveButton.setFont(new java.awt.Font("Franklin Gothic Book", 0, 14)); // NOI18N
+        saveButton.setForeground(new java.awt.Color(255, 255, 255));
+        saveButton.setText("SAVE");
+        saveButton.setVisible(false);
+        saveButton.setPreferredSize(new java.awt.Dimension(136, 32));
+        saveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveButtonActionPerformed(evt);
+            }
+        });
+        formDetailsPanel.add(saveButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(555, 208, -1, -1));
 
         javax.swing.GroupLayout dogsPanelLayout = new javax.swing.GroupLayout(dogsPanel);
         dogsPanel.setLayout(dogsPanelLayout);
@@ -800,47 +840,240 @@ public class DogView extends javax.swing.JFrame {
     }//GEN-LAST:event_adoptionsButtonActionPerformed
 
     private void addDogButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDogButtonActionPerformed
-        try {
-            int id = Integer.parseInt(dogIdField.getText());
-            if (id <= 0) {
-                errorFieldFocus(dogIdField);
-                return;
-            }
-            String name = dogNameField.getText();
-            String breed = dogBreedField.getText();
-            String color = dogColorField.getText();
-            String gender = femaleRadioButton.isSelected() ? "Female" : "Male";
-            int age = Integer.parseInt(dogAgeField.getText());
-            if (age < 0) {
-                javax.swing.JOptionPane.showMessageDialog(this, "Age cannot be negative.", "Input Error", javax.swing.JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            float weight = Float.parseFloat(dogWeightField.getText());
-            if (weight <= 0) {
-                javax.swing.JOptionPane.showMessageDialog(this, "Weight must be positive.", "Input Error", javax.swing.JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            String adoptionStatus = (String) adoptionStatusComboBox.getSelectedItem();
+        // Track if any errors were found
+        boolean hasErrors = false;
 
-            // Create a Dog object and add it to the list
+        // Clear all previous error highlights first
+        clearAllErrorHighlights();
+
+        // 1. Validate ID
+        String idText = dogIdField.getText().trim();
+        if (idText.isEmpty()) {
+            errorFieldFocus(dogIdField, idErrorLabel, "ID cannot be empty.");
+            hasErrors = true;
+        } else {
+            try {
+                int id = Integer.parseInt(idText);
+                if (id <= 0) {
+                    errorFieldFocus(dogIdField, idErrorLabel, "ID must be positive.");
+                    hasErrors = true;
+                } else {
+                    clearErrorField(dogIdField, idErrorLabel);
+                }
+            } catch (NumberFormatException e) {
+                errorFieldFocus(dogIdField, idErrorLabel, "ID must be a valid number.");
+                hasErrors = true;
+            }
+        }
+
+        // 2. Validate Name
+        String name = dogNameField.getText().trim();
+        if (name.isEmpty()) {
+            errorFieldFocus(dogNameField, nameErrorLabel, "Name cannot be empty.");
+            hasErrors = true;
+        } else {
+            clearErrorField(dogNameField, nameErrorLabel);
+        }
+
+        // 3. Validate Breed
+        String breed = dogBreedField.getText().trim();
+        if (breed.isEmpty()) {
+            errorFieldFocus(dogBreedField, breedErrorLabel, "Breed cannot be empty.");
+            hasErrors = true;
+        } else {
+            clearErrorField(dogBreedField, breedErrorLabel);
+        }
+
+        // 4. Validate Color
+        String color = dogColorField.getText().trim();
+        if (color.isEmpty()) {
+            errorFieldFocus(dogColorField, colorErrorLabel, "Color cannot be empty.");
+            hasErrors = true;
+        } else {
+            clearErrorField(dogColorField, colorErrorLabel);
+        }
+
+        // 5. Validate Gender
+        if (!femaleRadioButton.isSelected() && !maleRadioButton.isSelected()) {
+            // Highlight gender selection area
+            if (genderPanel != null) {
+                genderPanel.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+            }
+            femaleRadioButton.setForeground(Color.RED);
+            maleRadioButton.setForeground(Color.RED);
+            hasErrors = true;
+        } else {
+            if (genderPanel != null) {
+                genderPanel.setBorder(null);
+            }
+            femaleRadioButton.setForeground(null);
+            maleRadioButton.setForeground(null);
+        }
+
+        // 6. Validate Age
+        String ageText = dogAgeField.getText().trim();
+        if (ageText.isEmpty()) {
+            errorFieldFocus(dogAgeField, ageErrorLabel, "Age cannot be empty.");
+            hasErrors = true;
+        } else {
+            try {
+                int age = Integer.parseInt(ageText);
+                if (age <= 0) {
+                    errorFieldFocus(dogAgeField, ageErrorLabel, "Age must be positive.");
+                    hasErrors = true;
+                } else if (age > 30) {
+                    errorFieldFocus(dogAgeField, ageErrorLabel, "Please enter a valid age (1-30).");
+                    hasErrors = true;
+                } else {
+                    clearErrorField(dogAgeField, ageErrorLabel);
+                }
+            } catch (NumberFormatException e) {
+                errorFieldFocus(dogAgeField, ageErrorLabel, "Age must be a valid number.");
+                hasErrors = true;
+            }
+        }
+
+        // 7. Validate Weight
+        String weightText = dogWeightField.getText().trim();
+        if (weightText.isEmpty()) {
+            errorFieldFocus(dogWeightField, weightErrorLabel, "Weight cannot be empty.");
+            hasErrors = true;
+        } else {
+            try {
+                float weight = Float.parseFloat(weightText);
+                if (weight <= 0) {
+                    errorFieldFocus(dogWeightField, weightErrorLabel, "Weight must be positive.");
+                    hasErrors = true;
+                } else if (weight > 200) {
+                    errorFieldFocus(dogWeightField, weightErrorLabel, "Please enter a valid weight (0.1-200).");
+                    hasErrors = true;
+                } else {
+                    clearErrorField(dogWeightField, weightErrorLabel);
+                }
+            } catch (NumberFormatException e) {
+                errorFieldFocus(dogWeightField, weightErrorLabel, "Weight must be a valid number.");
+                hasErrors = true;
+            }
+        }
+
+        // 8. Validate Adoption Status
+        String adoptionStatus = (String) adoptionStatusComboBox.getSelectedItem();
+        if (adoptionStatus == null || adoptionStatus.trim().isEmpty()) {
+            adoptionStatusComboBox.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+            hasErrors = true;
+        } else {
+            adoptionStatusComboBox.setBorder(null);
+        }
+
+        // If any errors found, show simple message and return
+        if (hasErrors) {
+            JOptionPane.showMessageDialog(this,
+                    "Please correct the highlighted fields with errors.",
+                    "Validation Error",
+                    JOptionPane.WARNING_MESSAGE);
+
+            // Focus on first error field
+            focusFirstErrorField();
+            return;
+        }
+
+        // All validations passed - proceed with adding dog
+        try {
+            int id = Integer.parseInt(dogIdField.getText().trim());
+            String gender = femaleRadioButton.isSelected() ? "Female" : "Male";
+            int age = Integer.parseInt(dogAgeField.getText().trim());
+            float weight = Float.parseFloat(dogWeightField.getText().trim());
+
             Dog newDog = new Dog(id, name, breed, adoptionStatus, age, gender, weight, color);
+
             if (!controller.addDog(newDog)) {
-                javax.swing.JOptionPane.showMessageDialog(this, "Dog with ID " + id + " already exists.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
-                return;
+                JOptionPane.showMessageDialog(this,
+                        "Dog with ID " + id + " already exists.",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
             } else {
                 controller.loadDataToTable(dogTable);
-                JOptionPane.showMessageDialog(this, "Dog with ID " + id + " successfully added", "Added", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this,
+                        "Dog with ID " + id + " successfully added",
+                        "Success",
+                        JOptionPane.INFORMATION_MESSAGE);
             }
-
         } catch (NumberFormatException e) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Please enter valid values.", "Input Error", javax.swing.JOptionPane.ERROR_MESSAGE);
-            return;
+            JOptionPane.showMessageDialog(this,
+                    "Unexpected error. Please try again.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_addDogButtonActionPerformed
 
-    private void updateTableButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateTableButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_updateTableButtonActionPerformed
+    private void updateDogButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateDogButtonActionPerformed
+        // Ask for ID to edit
+        String idInput = JOptionPane.showInputDialog(this,
+                "Enter the ID of the dog to update:",
+                "Edit Dog",
+                JOptionPane.QUESTION_MESSAGE);
+
+        if (idInput == null || idInput.trim().isEmpty()) {
+            return;
+        }
+
+        try {
+            int id = Integer.parseInt(idInput.trim());
+            if (id <= 0) {
+                JOptionPane.showMessageDialog(this,
+                        "ID must be a positive number.",
+                        "Input Error",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Use your controller's viewDog method
+            Dog dogToUpdate = controller.viewDog(id);
+            if (dogToUpdate == null) {
+                JOptionPane.showMessageDialog(this,
+                        "Dog with ID " + id + " not found.",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Store the ID being edited in save button's client property
+            saveButton.putClientProperty("editId", id);
+
+            // Populate form with dog data
+            dogIdField.setText(String.valueOf(dogToUpdate.getId()));
+            dogNameField.setText(dogToUpdate.getName());
+            dogBreedField.setText(dogToUpdate.getBreed());
+            dogAgeField.setText(String.valueOf(dogToUpdate.getAge()));
+            dogWeightField.setText(String.valueOf(dogToUpdate.getWeight()));
+            dogColorField.setText(dogToUpdate.getColor());
+
+            if (dogToUpdate.getGender().equalsIgnoreCase("Female")) {
+                femaleRadioButton.setSelected(true);
+            } else {
+                maleRadioButton.setSelected(true);
+            }
+
+            adoptionStatusComboBox.setSelectedItem(dogToUpdate.getAdoptionStatus());
+
+            // Make ID field read-only during edit
+            dogIdField.setEditable(false);
+
+            // Switch button visibility
+            addDogButton.setVisible(false);
+            updateDogButton.setVisible(false);
+            saveButton.setVisible(true);
+
+            // Optional: Focus on first editable field
+            dogNameField.requestFocus();
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this,
+                    "Please enter a valid numeric ID.",
+                    "Input Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_updateDogButtonActionPerformed
 
     private void clearFieldsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearFieldsButtonActionPerformed
         dogIdField.setText("");
@@ -854,7 +1087,93 @@ public class DogView extends javax.swing.JFrame {
     }//GEN-LAST:event_clearFieldsButtonActionPerformed
 
     private void deleteFromListButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteFromListButtonActionPerformed
-        // TODO add your handling code here:
+        try {
+            // Show input dialog for ID
+            String idInput = JOptionPane.showInputDialog(
+                    this,
+                    "Enter the ID of the dog to delete:",
+                    "Delete Dog",
+                    JOptionPane.QUESTION_MESSAGE
+            );
+
+            // If user cancels or closes the dialog
+            if (idInput == null || idInput.trim().isEmpty()) {
+                return;
+            }
+
+            // Validate that the input is a positive integer
+            int id;
+            try {
+                id = Integer.parseInt(idInput);
+                if (id <= 0) {
+                    JOptionPane.showMessageDialog(
+                            this,
+                            "ID must be a positive number.",
+                            "Invalid Input",
+                            JOptionPane.WARNING_MESSAGE
+                    );
+                    return;
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Invalid ID. Please enter a valid number.",
+                        "Invalid Input",
+                        JOptionPane.ERROR_MESSAGE
+                );
+                return;
+            }
+
+            // Ask for confirmation before deleting
+            int confirm = JOptionPane.showConfirmDialog(
+                    this,
+                    "Are you sure you want to delete dog with ID: " + id,
+                    "Confirm Deletion",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.WARNING_MESSAGE
+            );
+
+            if (confirm == JOptionPane.YES_OPTION) {
+                // Attempt to delete the dog
+                boolean deleted = controller.deleteDog(id);
+
+                if (!deleted) {
+                    JOptionPane.showMessageDialog(
+                            this,
+                            "Dog with ID " + id + " was not found.",
+                            "Not Found",
+                            JOptionPane.ERROR_MESSAGE
+                    );
+                } else {
+                    controller.loadDataToTable(dogTable);
+
+                    JOptionPane.showMessageDialog(
+                            this,
+                            "Dog with ID " + id + " was successfully deleted.",
+                            "Success",
+                            JOptionPane.INFORMATION_MESSAGE
+                    );
+                }
+            } else {
+                // if user chooses not to delete
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Deletion cancelled.",
+                        "Cancelled",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+            }
+
+        } catch (Exception e) {
+            // Catch any unexpected exceptions
+            JOptionPane.showMessageDialog(
+                    this,
+                    "An unexpected error occurred: " + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+
     }//GEN-LAST:event_deleteFromListButtonActionPerformed
 
     private void dogNameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dogNameFieldActionPerformed
@@ -865,11 +1184,240 @@ public class DogView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_dogIdFieldActionPerformed
 
+    private void refreshTableButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshTableButtonActionPerformed
+        dogTable.repaint();
+    }//GEN-LAST:event_refreshTableButtonActionPerformed
+
+    private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
+        // Get the ID being edited from save button's client property
+        Integer editId = (Integer) saveButton.getClientProperty("editId");
+        if (editId == null) {
+            JOptionPane.showMessageDialog(this,
+                    "Error: No dog ID found for editing.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Clear all previous error highlights
+        clearAllErrorHighlights();
+
+        // Validate all fields
+        boolean hasErrors = validateAllFields();
+
+        // If errors found, show message and return
+        if (hasErrors) {
+            JOptionPane.showMessageDialog(this,
+                    "Please correct the highlighted fields with errors.",
+                    "Validation Error",
+                    JOptionPane.WARNING_MESSAGE);
+            focusFirstErrorField();
+            return;
+        }
+
+        // All validations passed - proceed with update
+        try {
+            // Get all field values
+            String name = dogNameField.getText().trim();
+            String breed = dogBreedField.getText().trim();
+            String color = dogColorField.getText().trim();
+            int age = Integer.parseInt(dogAgeField.getText().trim());
+            float weight = Float.parseFloat(dogWeightField.getText().trim());
+            String gender = femaleRadioButton.isSelected() ? "Female" : "Male";
+            String adoptionStatus = (String) adoptionStatusComboBox.getSelectedItem();
+
+            // Create updated dog object
+            Dog updatedDog = new Dog(editId, name, breed, adoptionStatus, age, gender, weight, color);
+
+            // Call controller's updateDog method
+            boolean success = controller.updateDog(editId, updatedDog);
+
+            if (success) {
+                controller.loadDataToTable(dogTable);
+                JOptionPane.showMessageDialog(this,
+                        "Dog updated successfully!",
+                        "Success",
+                        JOptionPane.INFORMATION_MESSAGE);
+
+                // Reset form and button visibility
+                resetFormAfterSave();
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "Failed to update dog. Please try again.",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this,
+                    "Please enter valid numeric values for age and weight.",
+                    "Input Error",
+                    JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this,
+                    "Error: " + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_saveButtonActionPerformed
+
     private void errorFieldFocus(JTextField field, JLabel errorLabel, String message) {
-        Border errorBorder = BorderFactory.createLineBorder(Color.RED, 2);
-        field.setBorder(errorBorder);
-        errorLabel.setText(message);
+        field.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+        if (errorLabel != null) {
+            errorLabel.setText(message);
+            errorLabel.setForeground(Color.RED);
+            errorLabel.setVisible(true);
+        }
     }
+
+    private void clearErrorField(JTextField field, JLabel errorLabel) {
+        field.setBorder(BorderFactory.createLineBorder(new Color(102, 102, 102), 2));
+        if (errorLabel != null) {
+            errorLabel.setText("");
+            errorLabel.setVisible(false);
+        }
+    }
+
+    private void focusFirstErrorField() {
+        if (dogIdField.getText().trim().isEmpty()) {
+            dogIdField.requestFocus();
+        } else if (dogNameField.getText().trim().isEmpty()) {
+            dogNameField.requestFocus();
+        } else if (dogBreedField.getText().trim().isEmpty()) {
+            dogBreedField.requestFocus();
+        } else if (dogColorField.getText().trim().isEmpty()) {
+            dogColorField.requestFocus();
+        } else if (dogAgeField.getText().trim().isEmpty()) {
+            dogAgeField.requestFocus();
+        } else if (dogWeightField.getText().trim().isEmpty()) {
+            dogWeightField.requestFocus();
+        }
+    }
+
+    private void clearAllErrorHighlights() {
+        clearErrorField(dogIdField, idErrorLabel);
+        clearErrorField(dogNameField, nameErrorLabel);
+        clearErrorField(dogBreedField, breedErrorLabel);
+        clearErrorField(dogColorField, colorErrorLabel);
+        clearErrorField(dogAgeField, ageErrorLabel);
+        clearErrorField(dogWeightField, weightErrorLabel);
+
+        // Clear gender highlights
+        if (genderPanel != null) {
+            genderPanel.setBorder(null);
+        }
+        femaleRadioButton.setForeground(null);
+        maleRadioButton.setForeground(null);
+
+        // Clear combobox border
+        adoptionStatusComboBox.setBorder(null);
+    }
+
+    private boolean validateAllFields() {
+        boolean hasErrors = false;
+
+        // 1. Validate Name
+        if (dogNameField.getText().trim().isEmpty()) {
+            errorFieldFocus(dogNameField, nameErrorLabel, "Name cannot be empty.");
+            hasErrors = true;
+        }
+
+        // 2. Validate Breed
+        if (dogBreedField.getText().trim().isEmpty()) {
+            errorFieldFocus(dogBreedField, breedErrorLabel, "Breed cannot be empty.");
+            hasErrors = true;
+        }
+
+        // 3. Validate Color
+        if (dogColorField.getText().trim().isEmpty()) {
+            errorFieldFocus(dogColorField, colorErrorLabel, "Color cannot be empty.");
+            hasErrors = true;
+        }
+
+        // 4. Validate Gender
+        if (!femaleRadioButton.isSelected() && !maleRadioButton.isSelected()) {
+            if (genderPanel != null) {
+                genderPanel.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+            }
+            femaleRadioButton.setForeground(Color.RED);
+            maleRadioButton.setForeground(Color.RED);
+            hasErrors = true;
+        }
+
+        // 5. Validate Age
+        String ageText = dogAgeField.getText().trim();
+        if (ageText.isEmpty()) {
+            errorFieldFocus(dogAgeField, ageErrorLabel, "Age cannot be empty.");
+            hasErrors = true;
+        } else {
+            try {
+                int age = Integer.parseInt(ageText);
+                if (age <= 0) {
+                    errorFieldFocus(dogAgeField, ageErrorLabel, "Age must be positive.");
+                    hasErrors = true;
+                } else if (age > 30) {
+                    errorFieldFocus(dogAgeField, ageErrorLabel, "Please enter a valid age (1-30).");
+                    hasErrors = true;
+                }
+            } catch (NumberFormatException e) {
+                errorFieldFocus(dogAgeField, ageErrorLabel, "Age must be a valid number.");
+                hasErrors = true;
+            }
+        }
+
+        // 6. Validate Weight
+        String weightText = dogWeightField.getText().trim();
+        if (weightText.isEmpty()) {
+            errorFieldFocus(dogWeightField, weightErrorLabel, "Weight cannot be empty.");
+            hasErrors = true;
+        } else {
+            try {
+                float weight = Float.parseFloat(weightText);
+                if (weight <= 0) {
+                    errorFieldFocus(dogWeightField, weightErrorLabel, "Weight must be positive.");
+                    hasErrors = true;
+                } else if (weight > 200) {
+                    errorFieldFocus(dogWeightField, weightErrorLabel, "Please enter a valid weight (0.1-200).");
+                    hasErrors = true;
+                }
+            } catch (NumberFormatException e) {
+                errorFieldFocus(dogWeightField, weightErrorLabel, "Weight must be a valid number.");
+                hasErrors = true;
+            }
+        }
+
+        // 7. Validate Adoption Status
+        String adoptionStatus = (String) adoptionStatusComboBox.getSelectedItem();
+        if (adoptionStatus == null || adoptionStatus.trim().isEmpty()) {
+            adoptionStatusComboBox.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
+            hasErrors = true;
+        }
+
+        return hasErrors;
+    }
+
+    private void resetFormAfterSave() {
+        // Clear the form
+        dogIdField.setText("");
+        dogNameField.setText("");
+        dogBreedField.setText("");
+        dogColorField.setText("");
+        dogAgeField.setText("");
+        dogWeightField.setText("");
+        genderButtonGroup.clearSelection();
+        adoptionStatusComboBox.setSelectedIndex(0);
+        dogIdField.setEditable(true); // Re-enable ID field
+        clearAllErrorHighlights();
+
+        // Switch button visibility back
+        addDogButton.setVisible(true);
+        updateDogButton.setVisible(true);
+        saveButton.setVisible(false);
+
+        // Clear the stored ID
+        saveButton.putClientProperty("editId", null);
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -954,9 +1502,10 @@ public class DogView extends javax.swing.JFrame {
     private javax.swing.JPanel nameErrorPanel;
     private javax.swing.JPanel navigationPanel;
     private javax.swing.JButton refreshTableButton;
+    private javax.swing.JButton saveButton;
     private javax.swing.JTextField searchField;
     private javax.swing.JPanel tablePanel;
-    private javax.swing.JButton updateTableButton;
+    private javax.swing.JButton updateDogButton;
     private javax.swing.JButton userButton;
     private javax.swing.JPanel userPanel;
     private javax.swing.JPanel usersManagementPanel;

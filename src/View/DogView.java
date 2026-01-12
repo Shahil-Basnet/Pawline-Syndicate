@@ -8,6 +8,7 @@ import Model.Dog;
 import Controller.DogController;
 import java.awt.CardLayout;
 import java.awt.Color;
+import javax.accessibility.AccessibleAction;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -28,6 +29,7 @@ public class DogView extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DogView.class.getName());
     private CardLayout cardLayout, cardLayoutAdmin;
     private DogController controller;
+    private boolean isEditMode = false;
 
     /**
      * Creates new form DogView
@@ -117,6 +119,7 @@ public class DogView extends javax.swing.JFrame {
         addDogButton = new javax.swing.JButton();
         clearFieldsButton = new javax.swing.JButton();
         saveButton = new javax.swing.JButton();
+        cancelButton = new javax.swing.JButton();
         usersManagementPanel = new javax.swing.JPanel();
         adoptionsPanel = new javax.swing.JPanel();
         historyPanel = new javax.swing.JPanel();
@@ -413,7 +416,7 @@ public class DogView extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Name", "Breed", "Age", "Gender", "Weight", "Color", "AdoptionStatus"
+                "ID", "Name", "Breed", "Age", "Gender", "Weight (kg)", "Color", "AdoptionStatus"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -586,8 +589,8 @@ public class DogView extends javax.swing.JFrame {
 
         dogWeightLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         dogWeightLabel.setForeground(new java.awt.Color(0, 0, 0));
-        dogWeightLabel.setText("Weight");
-        formDetailsPanel.add(dogWeightLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 100, 71, -1));
+        dogWeightLabel.setText("Weight (kg)");
+        formDetailsPanel.add(dogWeightLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 100, 80, -1));
 
         weightErrorPanel.setBackground(new java.awt.Color(236, 240, 241));
         weightErrorPanel.setLayout(new java.awt.BorderLayout());
@@ -718,6 +721,19 @@ public class DogView extends javax.swing.JFrame {
             }
         });
         formDetailsPanel.add(saveButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(555, 208, -1, -1));
+
+        cancelButton.setBackground(new java.awt.Color(44, 62, 80));
+        cancelButton.setFont(new java.awt.Font("Franklin Gothic Book", 0, 14)); // NOI18N
+        cancelButton.setForeground(new java.awt.Color(255, 255, 255));
+        cancelButton.setVisible(false);
+        cancelButton.setText("CANCEL");
+        cancelButton.setPreferredSize(new java.awt.Dimension(136, 32));
+        cancelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelButtonActionPerformed(evt);
+            }
+        });
+        formDetailsPanel.add(cancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(726, 208, -1, -1));
 
         javax.swing.GroupLayout dogsPanelLayout = new javax.swing.GroupLayout(dogsPanel);
         dogsPanel.setLayout(dogsPanelLayout);
@@ -1007,6 +1023,8 @@ public class DogView extends javax.swing.JFrame {
     }//GEN-LAST:event_addDogButtonActionPerformed
 
     private void updateDogButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateDogButtonActionPerformed
+        isEditMode = true;
+        clearFormFields();
         // Ask for ID to edit
         String idInput = JOptionPane.showInputDialog(this,
                 "Enter the ID of the dog to update:",
@@ -1014,6 +1032,7 @@ public class DogView extends javax.swing.JFrame {
                 JOptionPane.QUESTION_MESSAGE);
 
         if (idInput == null || idInput.trim().isEmpty()) {
+            isEditMode = false;
             return;
         }
 
@@ -1026,7 +1045,7 @@ public class DogView extends javax.swing.JFrame {
                         JOptionPane.ERROR_MESSAGE);
                 return;
             }
-
+            clearAllErrorHighlights();
             // Use your controller's viewDog method
             Dog dogToUpdate = controller.viewDog(id);
             if (dogToUpdate == null) {
@@ -1060,11 +1079,12 @@ public class DogView extends javax.swing.JFrame {
             dogIdField.setEditable(false);
 
             // Switch button visibility
-            addDogButton.setVisible(false);
-            updateDogButton.setVisible(false);
+            clearFieldsButton.setEnabled(false);
+            addDogButton.setEnabled(false);
+            updateDogButton.setEnabled(false);
             saveButton.setVisible(true);
+            cancelButton.setVisible(true);
 
-            // Optional: Focus on first editable field
             dogNameField.requestFocus();
 
         } catch (NumberFormatException e) {
@@ -1076,18 +1096,20 @@ public class DogView extends javax.swing.JFrame {
     }//GEN-LAST:event_updateDogButtonActionPerformed
 
     private void clearFieldsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearFieldsButtonActionPerformed
-        dogIdField.setText("");
-        dogNameField.setText("");
-        dogBreedField.setText("");
-        dogAgeField.setText("");
-        dogWeightField.setText("");
-        dogColorField.setText("");
-        genderButtonGroup.clearSelection();
-        adoptionStatusComboBox.setSelectedIndex(0);
+        clearFormFields();
     }//GEN-LAST:event_clearFieldsButtonActionPerformed
 
     private void deleteFromListButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteFromListButtonActionPerformed
         try {
+            if (isEditMode) {
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Please finish editing first",
+                        "Error",
+                        JOptionPane.WARNING_MESSAGE
+                );
+                return;
+            }
             // Show input dialog for ID
             String idInput = JOptionPane.showInputDialog(
                     this,
@@ -1261,6 +1283,10 @@ public class DogView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_saveButtonActionPerformed
 
+    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
+        resetFormAfterSave();
+    }//GEN-LAST:event_cancelButtonActionPerformed
+
     private void errorFieldFocus(JTextField field, JLabel errorLabel, String message) {
         field.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
         if (errorLabel != null) {
@@ -1397,7 +1423,23 @@ public class DogView extends javax.swing.JFrame {
     }
 
     private void resetFormAfterSave() {
-        // Clear the form
+        clearFormFields(); //clears the form and all erors
+
+        //exit edit mode
+        isEditMode = false;
+
+        // Switch button visibility back
+        clearFieldsButton.setEnabled(true);
+        addDogButton.setEnabled(true);
+        updateDogButton.setEnabled(true);
+        saveButton.setVisible(false);
+        cancelButton.setVisible(false);
+
+        // Clear the stored ID
+        saveButton.putClientProperty("editId", null);
+    }
+
+    private void clearFormFields() {
         dogIdField.setText("");
         dogNameField.setText("");
         dogBreedField.setText("");
@@ -1406,16 +1448,8 @@ public class DogView extends javax.swing.JFrame {
         dogWeightField.setText("");
         genderButtonGroup.clearSelection();
         adoptionStatusComboBox.setSelectedIndex(0);
-        dogIdField.setEditable(true); // Re-enable ID field
         clearAllErrorHighlights();
-
-        // Switch button visibility back
-        addDogButton.setVisible(true);
-        updateDogButton.setVisible(true);
-        saveButton.setVisible(false);
-
-        // Clear the stored ID
-        saveButton.putClientProperty("editId", null);
+        dogIdField.setEditable(true);
     }
 
     /**
@@ -1454,6 +1488,7 @@ public class DogView extends javax.swing.JFrame {
     private javax.swing.JPanel ageErrorPanel;
     private javax.swing.JLabel breedErrorLabel;
     private javax.swing.JPanel breedErrorPanel;
+    private javax.swing.JButton cancelButton;
     private javax.swing.JButton clearFieldsButton;
     private javax.swing.JLabel colorErrorLabel;
     private javax.swing.JPanel colorErrorPanel;

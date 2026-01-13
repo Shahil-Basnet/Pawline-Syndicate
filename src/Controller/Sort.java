@@ -12,7 +12,7 @@ import java.util.LinkedList;
  *
  * @author Shahil
  */
-public class Sort {
+public class Sort extends DogController{
 
     public static void selectionSortByName(LinkedList<Dog> dogs) {
         for (int i = 0; i < dogs.size() - 1; i++) {
@@ -52,9 +52,9 @@ public class Sort {
         LinkedList<Dog> left = new LinkedList<>();
         LinkedList<Dog> right = new LinkedList<>();
         int mid = dogs.size() / 2;
-        
+
         Iterator<Dog> it = dogs.iterator();
-        
+
         // Fill left half
         for (int i = 0; i < mid; i++) {
             left.add(it.next());
@@ -86,12 +86,12 @@ public class Sort {
         result.addAll(left);
         result.addAll(right);
     }
-    
+
     public static void bubbleSortById(LinkedList<Dog> dogs) {
         int swaps = 0;
         int listSize = dogs.size();
         boolean swapped;
-        
+
         for (int i = 0; i < listSize - 1; i++) {
             swapped = false;
             for (int j = 0; j < listSize - i - 1; j++) {

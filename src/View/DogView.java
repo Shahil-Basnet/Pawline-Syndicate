@@ -6,8 +6,11 @@ package View;
 
 import Model.Dog;
 import Controller.DogController;
+import Controller.Search;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.util.LinkedList;
+
 import javax.accessibility.AccessibleAction;
 
 import javax.swing.BorderFactory;
@@ -31,6 +34,7 @@ public class DogView extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DogView.class.getName());
     private CardLayout cardLayout, cardLayoutAdmin;
     private DogController controller;
+    private Search search;
     private boolean isEditMode = false;
     private String selectedPhotoPath = null;
 
@@ -46,6 +50,7 @@ public class DogView extends javax.swing.JFrame {
         controller = new DogController();
         controller.loadInitialData();
         controller.loadDataToTable(dogTable);
+        search = new Search();
     }
 
     /**
@@ -509,6 +514,11 @@ public class DogView extends javax.swing.JFrame {
         searchDogButton.setFont(new java.awt.Font("Franklin Gothic Book", 0, 12)); // NOI18N
         searchDogButton.setForeground(new java.awt.Color(255, 255, 255));
         searchDogButton.setText("Search");
+        searchDogButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchDogButtonActionPerformed(evt);
+            }
+        });
         tablePanel.add(searchDogButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 6, -1, 25));
 
         sortOptionCombo.setBackground(new java.awt.Color(44, 62, 80));
@@ -1297,7 +1307,7 @@ public class DogView extends javax.swing.JFrame {
     }//GEN-LAST:event_dogIdFieldActionPerformed
 
     private void refreshTableButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshTableButtonActionPerformed
-        dogTable.repaint();
+        controller.loadDataToTable(dogTable);
     }//GEN-LAST:event_refreshTableButtonActionPerformed
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
@@ -1422,7 +1432,7 @@ public class DogView extends javax.swing.JFrame {
     }//GEN-LAST:event_searchFieldActionPerformed
 
     private void searchFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchFieldFocusLost
-        searchField.setText("Enter " + searchTypeCombo.getSelectedItem() + " to search");
+
     }//GEN-LAST:event_searchFieldFocusLost
 
     private void searchTypeComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchTypeComboActionPerformed
@@ -1434,6 +1444,7 @@ public class DogView extends javax.swing.JFrame {
     }//GEN-LAST:event_searchFieldFocusGained
 
     private void sortButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sortButtonActionPerformed
+
         if (sortOptionCombo.getSelectedItem().equals("ID")) {
             controller.sortById();
             controller.loadDataToTable(dogTable);
@@ -1452,6 +1463,47 @@ public class DogView extends javax.swing.JFrame {
     private void sortOptionComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sortOptionComboActionPerformed
         sortButton.setText("Sort by " + sortOptionCombo.getSelectedItem());
     }//GEN-LAST:event_sortOptionComboActionPerformed
+
+    private void searchDogButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchDogButtonActionPerformed
+        String searchType = (String) searchTypeCombo.getSelectedItem();
+        String searchValue = searchField.getText().trim();
+
+        LinkedList<Dog> searchResults = new LinkedList<>();
+
+        if (searchType.equals("ID")) {
+            try {
+                int id = Integer.parseInt(searchValue); //ts will thowo error if a number is not entered
+                searchResults = controller.searchDogById(searchValue);
+
+                if (searchResults.isEmpty()) {
+                    JOptionPane.showMessageDialog(this,
+                            "No dog found with ID: " + id,
+                            "Not Found",
+                            JOptionPane.WARNING_MESSAGE);
+                } else {
+                    // Display found dog in table
+                    controller.loadDataToTable(dogTable, searchResults);
+                }
+
+            } catch (NumberFormatException e) {
+                return;
+            }
+
+        } else if (searchType.equals("Name")) {
+            // Search by name
+            searchResults = controller.searchDogsByName(searchValue);
+
+            if (searchResults.isEmpty()) {
+                JOptionPane.showMessageDialog(this,
+                        "No dogs found with name: " + searchValue,
+                        "Not Found",
+                        JOptionPane.WARNING_MESSAGE);
+            } else {
+                // Display found dogs in table
+                controller.loadDataToTable(dogTable, searchResults);
+            }
+        }
+    }//GEN-LAST:event_searchDogButtonActionPerformed
 
     private void errorFieldFocus(JTextField field, JLabel errorLabel, String message) {
         field.setBorder(BorderFactory.createLineBorder(Color.RED, 2));

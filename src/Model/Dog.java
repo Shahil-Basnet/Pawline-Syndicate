@@ -9,7 +9,7 @@ package Model;
  * @author Shahil
  */
 public class Dog {
-    private String name, breed, adoptionStatus, gender, color;
+    private String name, breed, adoptionStatus, gender, color, photoPath;
     
     //Basic details
     private int age, id;
@@ -19,7 +19,7 @@ public class Dog {
     //Dates
 //    private String intakeDate;
     
-    public Dog(int id, String name, String breed, String adoptionStatus, int age, String gender, float weight, String color) {
+    public Dog(int id, String name, String breed, String adoptionStatus, int age, String gender, float weight, String color, String photoPath) {
         this.id = id;
         this.name = name;
         this.breed = breed;
@@ -28,6 +28,7 @@ public class Dog {
         this.gender = gender;
         this.weight = weight;
         this.color = color;
+        this.photoPath = photoPath;
     }
     
     //getter methods
@@ -58,6 +59,10 @@ public class Dog {
     public int getAge() {
         return age;
     }
+
+    public String getPhotoPath() {
+        return photoPath;
+    }
     
 //    public String getIntakeDate() {
 //        return intakeDate;
@@ -87,11 +92,7 @@ public class Dog {
     public void setAge(int age) {
         this.age = age;
     }
-
-//    public void setIntakeDate(String intakeDate) {
-//        this.intakeDate = intakeDate;
-//    }
-//    
+  
     public void setGender(String gender) {
         this.gender = gender;
     }
@@ -102,5 +103,9 @@ public class Dog {
     
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public void setPhotoPath(String photoPath) {
+        this.photoPath = photoPath;
     }
 }

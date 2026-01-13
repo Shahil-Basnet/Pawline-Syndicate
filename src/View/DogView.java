@@ -86,8 +86,8 @@ public class DogView extends javax.swing.JFrame {
         dogTable = new javax.swing.JTable();
         refreshTableButton = new javax.swing.JButton();
         deleteFromListButton = new javax.swing.JButton();
-        searchField = new javax.swing.JTextField();
         searchTypeCombo = new javax.swing.JComboBox<>();
+        searchField = new javax.swing.JTextField();
         searchDogButton = new javax.swing.JButton();
         sortOptionCombo = new javax.swing.JComboBox<>();
         sortLabel = new javax.swing.JLabel();
@@ -474,6 +474,17 @@ public class DogView extends javax.swing.JFrame {
         });
         tablePanel.add(deleteFromListButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 40, 140, 40));
 
+        searchTypeCombo.setBackground(new java.awt.Color(44, 62, 80));
+        searchTypeCombo.setFont(new java.awt.Font("Franklin Gothic Book", 0, 12)); // NOI18N
+        searchTypeCombo.setForeground(new java.awt.Color(250, 250, 250));
+        searchTypeCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ID", "Name" }));
+        searchTypeCombo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchTypeComboActionPerformed(evt);
+            }
+        });
+        tablePanel.add(searchTypeCombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(348, 6, -1, 25));
+
         searchField.setBackground(new java.awt.Color(210, 210, 210));
         searchField.setForeground(new java.awt.Color(0, 0, 0));
         searchField.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -489,20 +500,10 @@ public class DogView extends javax.swing.JFrame {
                 searchFieldActionPerformed(evt);
             }
         });
+        searchField.setText("Enter " +searchTypeCombo.getSelectedItem() + " to search");
         tablePanel.add(searchField, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 258, -1));
         searchField.getAccessibleContext().setAccessibleName("");
         searchField.getAccessibleContext().setAccessibleDescription("");
-
-        searchTypeCombo.setBackground(new java.awt.Color(44, 62, 80));
-        searchTypeCombo.setFont(new java.awt.Font("Franklin Gothic Book", 0, 12)); // NOI18N
-        searchTypeCombo.setForeground(new java.awt.Color(250, 250, 250));
-        searchTypeCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ID", "Name" }));
-        searchTypeCombo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchTypeComboActionPerformed(evt);
-            }
-        });
-        tablePanel.add(searchTypeCombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(348, 6, -1, 25));
 
         searchDogButton.setBackground(new java.awt.Color(44, 62, 80));
         searchDogButton.setFont(new java.awt.Font("Franklin Gothic Book", 0, 12)); // NOI18N
@@ -514,6 +515,11 @@ public class DogView extends javax.swing.JFrame {
         sortOptionCombo.setFont(new java.awt.Font("Franklin Gothic Book", 0, 14)); // NOI18N
         sortOptionCombo.setForeground(new java.awt.Color(255, 255, 255));
         sortOptionCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ID", "Name", "Age", "Weight" }));
+        sortOptionCombo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sortOptionComboActionPerformed(evt);
+            }
+        });
         tablePanel.add(sortOptionCombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 170, 140, -1));
 
         sortLabel.setFont(new java.awt.Font("Franklin Gothic Book", 0, 14)); // NOI18N
@@ -1416,16 +1422,11 @@ public class DogView extends javax.swing.JFrame {
     }//GEN-LAST:event_searchFieldActionPerformed
 
     private void searchFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchFieldFocusLost
-
+        searchField.setText("Enter " + searchTypeCombo.getSelectedItem() + " to search");
     }//GEN-LAST:event_searchFieldFocusLost
 
     private void searchTypeComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchTypeComboActionPerformed
-        String selected = (String) searchTypeCombo.getSelectedItem();
-        if (selected.equals("ID")) {
-            searchField.setText("Enter ID number");
-        } else if (selected.equals("Name")) {
-            searchField.setText("Enter dog name");
-        }
+        searchField.setText("Enter " + searchTypeCombo.getSelectedItem() + " to search");
     }//GEN-LAST:event_searchTypeComboActionPerformed
 
     private void searchFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchFieldFocusGained
@@ -1440,13 +1441,17 @@ public class DogView extends javax.swing.JFrame {
             controller.sortByAge();
             controller.loadDataToTable(dogTable);
         } else if (sortOptionCombo.getSelectedItem().equals("Name")) {
-            controller.sortByAge();
+            controller.sortByName();
             controller.loadDataToTable(dogTable);
         } else if (sortOptionCombo.getSelectedItem().equals("Weight")) {
-            controller.sortByAge();
+            controller.sortByWeight();
             controller.loadDataToTable(dogTable);
         }
     }//GEN-LAST:event_sortButtonActionPerformed
+
+    private void sortOptionComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sortOptionComboActionPerformed
+        sortButton.setText("Sort by " + sortOptionCombo.getSelectedItem());
+    }//GEN-LAST:event_sortOptionComboActionPerformed
 
     private void errorFieldFocus(JTextField field, JLabel errorLabel, String message) {
         field.setBorder(BorderFactory.createLineBorder(Color.RED, 2));

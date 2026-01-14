@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JTable;
 import Controller.Sort;
+import Controller.Stack;
 
 /**
  *
@@ -18,6 +19,7 @@ public class DogController {
 
     LinkedList<Dog> dogList = new LinkedList<Dog>();
     private boolean isSortedById = false;
+    Stack stack1 = new Stack(15);
 
     public void loadInitialData() {
         dogList.add(new Dog(1, "Buddy", "Golden Retriever", "Unadopted", 3, "Male", 30.5f, "Golden", ""));
@@ -55,9 +57,18 @@ public class DogController {
     public boolean deleteDog(int dogId) {
         for (int i = 0; i < dogList.size(); i++) {
             if (dogList.get(i).getId() == dogId) {
-                dogList.remove(i);
+                stack1.push(dogList.remove(i));
                 return true;
             }
+        }
+        return false;
+    }
+    
+    public boolean undoLastDeletion() {
+        Dog lastDeleted = stack1.pop(); // Get most recent deletion
+        if (lastDeleted != null) {
+            dogList.add(lastDeleted); // Add back to main list
+            return true;
         }
         return false;
     }
@@ -130,6 +141,31 @@ public class DogController {
         table.repaint();
     }
 
+    public void loadDeletionHistoryToTable(JTable table) {
+        DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+        tableModel.setRowCount(0);
+
+        if (stack1 != null && !stack1.isEmpty()) {
+            Dog[] deletedDogs = stack1.getAllHistory();
+
+            // Show most recent first with serial numbers
+            for (int i = deletedDogs.length - 1; i >= 0; i--) {
+                Dog dog = deletedDogs[i];
+                tableModel.addRow(new Object[]{
+                    dog.getId(),
+                    dog.getName(),
+                    dog.getBreed(),
+                    dog.getAge(),
+                    dog.getGender(),
+                    dog.getWeight(),
+                    dog.getColor(),
+                    "Deleted"
+                });
+            }
+        }
+        table.repaint();
+    }
+
     /**
      * Validates details "Dog" object Checks if the dogId exists in the
      * linkedList.
@@ -179,13 +215,13 @@ public class DogController {
 
     public LinkedList<Dog> searchDogById(String id) {
         LinkedList<Dog> results = new LinkedList<>();
-        
+
         try {
             // Ensure list is sorted for binary search
             if (!isSortedById) {
                 sortById(); // Sort first
             }
-            
+
             Dog dog = Search.binarySearchById(dogList, id);
             if (dog != null) {
                 results.add(dog);
@@ -193,7 +229,15 @@ public class DogController {
         } catch (NumberFormatException e) {
             // Invalid ID format - return empty list
         }
-        
+
         return results;
+    }
+
+    public int getTotalDogs() {
+        return dogList.size();
+    }
+    
+    public void clearHistory(){
+        stack1.clearHistory();
     }
 }

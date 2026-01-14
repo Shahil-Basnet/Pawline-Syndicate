@@ -15,6 +15,7 @@ import javax.accessibility.AccessibleAction;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import java.awt.Image;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -38,17 +39,19 @@ public class DogView extends javax.swing.JFrame {
     private boolean isEditMode = false;
     private String selectedPhotoPath = null;
 
+
     /**
      * Creates new form DogView
      */
     public DogView() {
+        controller = new DogController();
+        controller.loadInitialData();
         initComponents();
         setLocationRelativeTo(null);
         cardLayout = (CardLayout) mainPanel.getLayout();
         cardLayout.show(mainPanel, "loginCard");
         cardLayoutAdmin = (CardLayout) contentPanel.getLayout();
-        controller = new DogController();
-        controller.loadInitialData();
+
         controller.loadDataToTable(dogTable);
         search = new Search();
     }
@@ -67,13 +70,15 @@ public class DogView extends javax.swing.JFrame {
         userPanel = new javax.swing.JPanel();
         logoutButtonUser = new javax.swing.JButton();
         loginPanel = new javax.swing.JPanel();
-        jPanel6 = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
-        loginDetailsPanel = new javax.swing.JPanel();
-        adminButton = new javax.swing.JButton();
-        userButton = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        ImageIcon logoImg = new ImageIcon("src\\assets\\icons\\ps_logo_horizontal.png");
+        Image scaledLogoImg = logoImg.getImage().getScaledInstance(250,140,Image.SCALE_SMOOTH);
+        jLabel1 = new javax.swing.JLabel(new ImageIcon(scaledLogoImg));
+        jTextField1 = new javax.swing.JTextField();
+        jPasswordField1 = new javax.swing.JPasswordField();
+        jButton1 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         adminPanel = new javax.swing.JPanel();
         headerPanel = new javax.swing.JPanel();
         logoLabel = new javax.swing.JLabel();
@@ -85,6 +90,19 @@ public class DogView extends javax.swing.JFrame {
         historyPanelButton = new javax.swing.JButton();
         contentPanel = new javax.swing.JPanel();
         dashboardPanel = new javax.swing.JPanel();
+        kpiPanel = new javax.swing.JPanel();
+        totalDogsPanel = new javax.swing.JPanel();
+        totalDogsLabel = new javax.swing.JLabel();
+        totalDogsCountLabel = new javax.swing.JLabel();
+        addedTodayPanel = new javax.swing.JPanel();
+        addedTodayLabel = new javax.swing.JLabel();
+        addedTodayCountLabel = new javax.swing.JLabel();
+        adoptionAppointmentsPanel = new javax.swing.JPanel();
+        adoptionsLabel = new javax.swing.JLabel();
+        adoptionAppointmentsCountLabel = new javax.swing.JLabel();
+        totalAdoptedPanel = new javax.swing.JPanel();
+        totalAdoptedLabel = new javax.swing.JLabel();
+        totalAdoptedCountLabel = new javax.swing.JLabel();
         dogsPanel = new javax.swing.JPanel();
         tablePanel = new javax.swing.JPanel();
         dogScrollPane = new javax.swing.JScrollPane();
@@ -97,6 +115,7 @@ public class DogView extends javax.swing.JFrame {
         sortOptionCombo = new javax.swing.JComboBox<>();
         sortLabel = new javax.swing.JLabel();
         sortButton = new javax.swing.JButton();
+        undoDeleteButton = new javax.swing.JButton();
         formDetailsPanel = new javax.swing.JPanel();
         dogIdLabel = new javax.swing.JLabel();
         idErrorPanel = new javax.swing.JPanel();
@@ -140,6 +159,14 @@ public class DogView extends javax.swing.JFrame {
         usersManagementPanel = new javax.swing.JPanel();
         adoptionsPanel = new javax.swing.JPanel();
         historyPanel = new javax.swing.JPanel();
+        adoptionHistoryTablePanel = new javax.swing.JPanel();
+        adoptedDogScrollPane = new javax.swing.JScrollPane();
+        adoptedDogTable = new javax.swing.JTable();
+        clearAdoptionHistoryButton = new javax.swing.JButton();
+        deletionHistoryTablePanel = new javax.swing.JPanel();
+        deletedDogScrollPane = new javax.swing.JScrollPane();
+        deletedDogTable = new javax.swing.JTable();
+        clearDeleteHistoryButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -174,110 +201,79 @@ public class DogView extends javax.swing.JFrame {
 
         mainPanel.add(userPanel, "userCard");
 
-        loginPanel.setBackground(new java.awt.Color(255, 255, 255));
+        loginPanel.setBackground(new java.awt.Color(250, 250, 255));
         loginPanel.setPreferredSize(new java.awt.Dimension(1200, 720));
-        loginPanel.setLayout(new java.awt.BorderLayout());
 
-        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel6.setToolTipText("");
+        jPanel1.setBackground(new java.awt.Color(250, 255, 253));
+        jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(90, 82, 102)));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1200, Short.MAX_VALUE)
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+        jLabel1.setText("");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(56, 18, 250, 140));
 
-        loginPanel.add(jPanel6, java.awt.BorderLayout.PAGE_END);
-
-        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 508, Short.MAX_VALUE)
-        );
-
-        loginPanel.add(jPanel5, java.awt.BorderLayout.LINE_END);
-
-        loginDetailsPanel.setBackground(new java.awt.Color(255, 255, 255));
-        loginDetailsPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 0, 0), 2, true));
-
-        adminButton.setText("ADMIN");
-        adminButton.addActionListener(new java.awt.event.ActionListener() {
+        jTextField1.setBackground(new java.awt.Color(250, 255, 253));
+        jTextField1.setForeground(new java.awt.Color(0, 0, 0));
+        jTextField1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(90, 82, 102), 3), "Username", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Franklin Gothic Book", 0, 12), new java.awt.Color(90, 82, 102))); // NOI18N
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                adminButtonActionPerformed(evt);
+                jTextField1ActionPerformed(evt);
             }
         });
+        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 230, 311, 66));
 
-        userButton.setText("USER");
-        userButton.addActionListener(new java.awt.event.ActionListener() {
+        jPasswordField1.setBackground(new java.awt.Color(250, 255, 253));
+        jPasswordField1.setForeground(new java.awt.Color(255, 255, 255));
+        jPasswordField1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(90, 82, 102), 3), "Password", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(90, 82, 102))); // NOI18N
+        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                userButtonActionPerformed(evt);
+                jPasswordField1ActionPerformed(evt);
             }
         });
+        jPanel1.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 300, 311, 68));
 
-        javax.swing.GroupLayout loginDetailsPanelLayout = new javax.swing.GroupLayout(loginDetailsPanel);
-        loginDetailsPanel.setLayout(loginDetailsPanelLayout);
-        loginDetailsPanelLayout.setHorizontalGroup(
-            loginDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(loginDetailsPanelLayout.createSequentialGroup()
-                .addGap(246, 246, 246)
-                .addComponent(adminButton, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(159, 159, 159)
-                .addComponent(userButton, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(225, Short.MAX_VALUE))
+        jButton1.setBackground(new java.awt.Color(90, 82, 102));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Login");
+        jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(60, 63, 65), null, null));
+        jButton1.setBorderPainted(false);
+        jButton1.setFocusPainted(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 420, 263, 52));
+
+        jLabel4.setBackground(new java.awt.Color(90, 82, 102));
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(90, 82, 102));
+        jLabel4.setText("Forgot your password?");
+        jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 372, -1, -1));
+
+        jLabel5.setBackground(new java.awt.Color(90, 82, 102));
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(90, 82, 102));
+        jLabel5.setText("Please fill the details below");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 200, -1, -1));
+
+        javax.swing.GroupLayout loginPanelLayout = new javax.swing.GroupLayout(loginPanel);
+        loginPanel.setLayout(loginPanelLayout);
+        loginPanelLayout.setHorizontalGroup(
+            loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginPanelLayout.createSequentialGroup()
+                .addContainerGap(468, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(393, 393, 393))
         );
-        loginDetailsPanelLayout.setVerticalGroup(
-            loginDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginDetailsPanelLayout.createSequentialGroup()
-                .addContainerGap(191, Short.MAX_VALUE)
-                .addGroup(loginDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(adminButton, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(userButton, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(197, 197, 197))
+        loginPanelLayout.setVerticalGroup(
+            loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(loginPanelLayout.createSequentialGroup()
+                .addGap(109, 109, 109)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(131, Short.MAX_VALUE))
         );
-
-        loginPanel.add(loginDetailsPanel, java.awt.BorderLayout.CENTER);
-
-        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1200, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 112, Short.MAX_VALUE)
-        );
-
-        loginPanel.add(jPanel4, java.awt.BorderLayout.PAGE_START);
-
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 508, Short.MAX_VALUE)
-        );
-
-        loginPanel.add(jPanel2, java.awt.BorderLayout.LINE_START);
 
         mainPanel.add(loginPanel, "loginCard");
 
@@ -405,17 +401,164 @@ public class DogView extends javax.swing.JFrame {
         contentPanel.setForeground(new java.awt.Color(245, 245, 245));
         contentPanel.setLayout(new java.awt.CardLayout());
 
-        dashboardPanel.setBackground(new java.awt.Color(204, 255, 204));
+        dashboardPanel.setBackground(new java.awt.Color(220, 220, 220));
+
+        kpiPanel.setBackground(new java.awt.Color(225, 225, 225));
+        kpiPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        totalDogsPanel.setBackground(new java.awt.Color(240, 240, 240));
+        totalDogsPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 102), 2, true));
+
+        totalDogsLabel.setFont(new java.awt.Font("Franklin Gothic Demi", 0, 28)); // NOI18N
+        totalDogsLabel.setForeground(new java.awt.Color(0, 0, 0));
+        totalDogsLabel.setText("Total Dogs");
+
+        totalDogsCountLabel.setFont(new java.awt.Font("Franklin Gothic Book", 0, 24)); // NOI18N
+        totalDogsCountLabel.setForeground(new java.awt.Color(0, 0, 0));
+        totalDogsCountLabel.setText(String.valueOf(controller.getTotalDogs()));
+
+        javax.swing.GroupLayout totalDogsPanelLayout = new javax.swing.GroupLayout(totalDogsPanel);
+        totalDogsPanel.setLayout(totalDogsPanelLayout);
+        totalDogsPanelLayout.setHorizontalGroup(
+            totalDogsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(totalDogsPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(totalDogsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(totalDogsCountLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
+                    .addComponent(totalDogsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        totalDogsPanelLayout.setVerticalGroup(
+            totalDogsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(totalDogsPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(totalDogsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(totalDogsCountLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        kpiPanel.add(totalDogsPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 24, -1, 126));
+
+        addedTodayPanel.setBackground(new java.awt.Color(240, 240, 240));
+        addedTodayPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 102), 2, true));
+        addedTodayPanel.setForeground(new java.awt.Color(255, 255, 255));
+
+        addedTodayLabel.setFont(new java.awt.Font("Franklin Gothic Demi", 0, 28)); // NOI18N
+        addedTodayLabel.setForeground(new java.awt.Color(0, 0, 0));
+        addedTodayLabel.setText("Total Dogs Added today");
+
+        addedTodayCountLabel.setFont(new java.awt.Font("Franklin Gothic Book", 0, 24)); // NOI18N
+        addedTodayCountLabel.setForeground(new java.awt.Color(0, 0, 0));
+        addedTodayCountLabel.setText(String.valueOf(controller.getTotalDogs()));
+
+        javax.swing.GroupLayout addedTodayPanelLayout = new javax.swing.GroupLayout(addedTodayPanel);
+        addedTodayPanel.setLayout(addedTodayPanelLayout);
+        addedTodayPanelLayout.setHorizontalGroup(
+            addedTodayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(addedTodayPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(addedTodayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(addedTodayCountLabel)
+                    .addComponent(addedTodayLabel))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        addedTodayPanelLayout.setVerticalGroup(
+            addedTodayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addedTodayPanelLayout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(addedTodayLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addComponent(addedTodayCountLabel)
+                .addGap(25, 25, 25))
+        );
+
+        kpiPanel.add(addedTodayPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 24, -1, 126));
+
+        adoptionAppointmentsPanel.setBackground(new java.awt.Color(240, 240, 240));
+        adoptionAppointmentsPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 102), 2, true));
+        adoptionAppointmentsPanel.setForeground(new java.awt.Color(255, 255, 255));
+
+        adoptionsLabel.setFont(new java.awt.Font("Franklin Gothic Demi", 0, 28)); // NOI18N
+        adoptionsLabel.setForeground(new java.awt.Color(0, 0, 0));
+        adoptionsLabel.setText("Adoption appointments");
+
+        adoptionAppointmentsCountLabel.setFont(new java.awt.Font("Franklin Gothic Book", 0, 24)); // NOI18N
+        adoptionAppointmentsCountLabel.setForeground(new java.awt.Color(0, 0, 0));
+        adoptionAppointmentsCountLabel.setText(String.valueOf(controller.getTotalDogs()));
+
+        javax.swing.GroupLayout adoptionAppointmentsPanelLayout = new javax.swing.GroupLayout(adoptionAppointmentsPanel);
+        adoptionAppointmentsPanel.setLayout(adoptionAppointmentsPanelLayout);
+        adoptionAppointmentsPanelLayout.setHorizontalGroup(
+            adoptionAppointmentsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(adoptionAppointmentsPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(adoptionAppointmentsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(adoptionAppointmentsCountLabel)
+                    .addComponent(adoptionsLabel))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        adoptionAppointmentsPanelLayout.setVerticalGroup(
+            adoptionAppointmentsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, adoptionAppointmentsPanelLayout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(adoptionsLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addComponent(adoptionAppointmentsCountLabel)
+                .addGap(25, 25, 25))
+        );
+
+        kpiPanel.add(adoptionAppointmentsPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 24, -1, 126));
+
+        totalAdoptedPanel.setBackground(new java.awt.Color(240, 240, 240));
+        totalAdoptedPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 102), 2, true));
+
+        totalAdoptedLabel.setFont(new java.awt.Font("Franklin Gothic Demi", 0, 28)); // NOI18N
+        totalAdoptedLabel.setForeground(new java.awt.Color(0, 0, 0));
+        totalAdoptedLabel.setText("Total adopted");
+
+        totalAdoptedCountLabel.setFont(new java.awt.Font("Franklin Gothic Book", 0, 24)); // NOI18N
+        totalAdoptedCountLabel.setForeground(new java.awt.Color(0, 0, 0));
+        totalAdoptedCountLabel.setText(String.valueOf(controller.getTotalDogs()));
+
+        javax.swing.GroupLayout totalAdoptedPanelLayout = new javax.swing.GroupLayout(totalAdoptedPanel);
+        totalAdoptedPanel.setLayout(totalAdoptedPanelLayout);
+        totalAdoptedPanelLayout.setHorizontalGroup(
+            totalAdoptedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(totalAdoptedPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(totalAdoptedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(totalAdoptedCountLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
+                    .addComponent(totalAdoptedLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        totalAdoptedPanelLayout.setVerticalGroup(
+            totalAdoptedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(totalAdoptedPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(totalAdoptedLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(totalAdoptedCountLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        kpiPanel.add(totalAdoptedPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 200, 290, 126));
 
         javax.swing.GroupLayout dashboardPanelLayout = new javax.swing.GroupLayout(dashboardPanel);
         dashboardPanel.setLayout(dashboardPanelLayout);
         dashboardPanelLayout.setHorizontalGroup(
             dashboardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1002, Short.MAX_VALUE)
+            .addGroup(dashboardPanelLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(kpiPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 979, Short.MAX_VALUE)
+                .addContainerGap())
         );
         dashboardPanelLayout.setVerticalGroup(
             dashboardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 730, Short.MAX_VALUE)
+            .addGroup(dashboardPanelLayout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(kpiPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(358, Short.MAX_VALUE))
         );
 
         contentPanel.add(dashboardPanel, "dashboardCard");
@@ -547,6 +690,17 @@ public class DogView extends javax.swing.JFrame {
             }
         });
         tablePanel.add(sortButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 215, 140, 40));
+
+        undoDeleteButton.setBackground(new java.awt.Color(44, 62, 80));
+        undoDeleteButton.setFont(new java.awt.Font("Franklin Gothic Book", 0, 14)); // NOI18N
+        undoDeleteButton.setForeground(new java.awt.Color(255, 255, 255));
+        undoDeleteButton.setText("Undo");
+        undoDeleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                undoDeleteButtonActionPerformed(evt);
+            }
+        });
+        tablePanel.add(undoDeleteButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 275, 140, 40));
 
         formDetailsPanel.setBackground(new java.awt.Color(236, 240, 241));
         formDetailsPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true), "Dog Information", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Franklin Gothic Medium Cond", 1, 24), new java.awt.Color(51, 51, 51))); // NOI18N
@@ -856,7 +1010,7 @@ public class DogView extends javax.swing.JFrame {
         usersManagementPanel.setLayout(usersManagementPanelLayout);
         usersManagementPanelLayout.setHorizontalGroup(
             usersManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1002, Short.MAX_VALUE)
+            .addGap(0, 1000, Short.MAX_VALUE)
         );
         usersManagementPanelLayout.setVerticalGroup(
             usersManagementPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -872,7 +1026,7 @@ public class DogView extends javax.swing.JFrame {
         adoptionsPanel.setLayout(adoptionsPanelLayout);
         adoptionsPanelLayout.setHorizontalGroup(
             adoptionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1002, Short.MAX_VALUE)
+            .addGap(0, 1000, Short.MAX_VALUE)
         );
         adoptionsPanelLayout.setVerticalGroup(
             adoptionsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -881,17 +1035,127 @@ public class DogView extends javax.swing.JFrame {
 
         contentPanel.add(adoptionsPanel, "adoptionsCard");
 
-        historyPanel.setBackground(new java.awt.Color(153, 0, 0));
+        historyPanel.setBackground(new java.awt.Color(220, 220, 220));
+
+        adoptionHistoryTablePanel.setBackground(new java.awt.Color(220, 220, 220));
+        adoptionHistoryTablePanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Adoption History", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Franklin Gothic Demi Cond", 1, 24), new java.awt.Color(51, 51, 51))); // NOI18N
+        adoptionHistoryTablePanel.setPreferredSize(new java.awt.Dimension(800, 640));
+        adoptionHistoryTablePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        adoptedDogTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Name", "Breed", "Age", "Gender", "Weight (kg)", "Color", "AdoptionStatus"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, true, true, true, true, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        adoptedDogScrollPane.setViewportView(adoptedDogTable);
+        if (adoptedDogTable.getColumnModel().getColumnCount() > 0) {
+            adoptedDogTable.getColumnModel().getColumn(0).setMinWidth(40);
+            adoptedDogTable.getColumnModel().getColumn(0).setPreferredWidth(60);
+            adoptedDogTable.getColumnModel().getColumn(0).setMaxWidth(60);
+            adoptedDogTable.getColumnModel().getColumn(3).setMinWidth(40);
+            adoptedDogTable.getColumnModel().getColumn(3).setPreferredWidth(60);
+            adoptedDogTable.getColumnModel().getColumn(3).setMaxWidth(60);
+        }
+
+        adoptionHistoryTablePanel.add(adoptedDogScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 838, 290));
+
+        clearAdoptionHistoryButton.setBackground(new java.awt.Color(44, 62, 80));
+        clearAdoptionHistoryButton.setFont(new java.awt.Font("Franklin Gothic Book", 0, 14)); // NOI18N
+        clearAdoptionHistoryButton.setForeground(new java.awt.Color(255, 255, 255));
+        clearAdoptionHistoryButton.setText("Clear");
+        clearAdoptionHistoryButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearAdoptionHistoryButtonActionPerformed(evt);
+            }
+        });
+        adoptionHistoryTablePanel.add(clearAdoptionHistoryButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 40, 130, 40));
+
+        deletionHistoryTablePanel.setBackground(new java.awt.Color(220, 220, 220));
+        deletionHistoryTablePanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Deletion History", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Franklin Gothic Demi Cond", 1, 24), new java.awt.Color(51, 51, 51))); // NOI18N
+        deletionHistoryTablePanel.setPreferredSize(new java.awt.Dimension(800, 640));
+        deletionHistoryTablePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        deletedDogTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Name", "Breed", "Age", "Gender", "Weight (kg)", "Color", "Deletion time"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, true, true, true, true, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        deletedDogScrollPane.setViewportView(deletedDogTable);
+        if (deletedDogTable.getColumnModel().getColumnCount() > 0) {
+            deletedDogTable.getColumnModel().getColumn(0).setMinWidth(40);
+            deletedDogTable.getColumnModel().getColumn(0).setPreferredWidth(60);
+            deletedDogTable.getColumnModel().getColumn(0).setMaxWidth(60);
+            deletedDogTable.getColumnModel().getColumn(3).setMinWidth(40);
+            deletedDogTable.getColumnModel().getColumn(3).setPreferredWidth(60);
+            deletedDogTable.getColumnModel().getColumn(3).setMaxWidth(60);
+        }
+
+        deletionHistoryTablePanel.add(deletedDogScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 838, 310));
+
+        clearDeleteHistoryButton.setBackground(new java.awt.Color(44, 62, 80));
+        clearDeleteHistoryButton.setFont(new java.awt.Font("Franklin Gothic Book", 0, 14)); // NOI18N
+        clearDeleteHistoryButton.setForeground(new java.awt.Color(255, 255, 255));
+        clearDeleteHistoryButton.setText("Clear");
+        clearDeleteHistoryButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearDeleteHistoryButtonActionPerformed(evt);
+            }
+        });
+        deletionHistoryTablePanel.add(clearDeleteHistoryButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 40, 130, 40));
 
         javax.swing.GroupLayout historyPanelLayout = new javax.swing.GroupLayout(historyPanel);
         historyPanel.setLayout(historyPanelLayout);
         historyPanelLayout.setHorizontalGroup(
             historyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1002, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, historyPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(adoptionHistoryTablePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 992, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(historyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(historyPanelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(deletionHistoryTablePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 992, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         historyPanelLayout.setVerticalGroup(
             historyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 730, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, historyPanelLayout.createSequentialGroup()
+                .addContainerGap(384, Short.MAX_VALUE)
+                .addComponent(adoptionHistoryTablePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(historyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(historyPanelLayout.createSequentialGroup()
+                    .addGap(16, 16, 16)
+                    .addComponent(deletionHistoryTablePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(354, Short.MAX_VALUE)))
         );
 
         contentPanel.add(historyPanel, "historyCard");
@@ -914,14 +1178,6 @@ public class DogView extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void userButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userButtonActionPerformed
-        cardLayout.show(mainPanel, "userCard");
-    }//GEN-LAST:event_userButtonActionPerformed
-
-    private void adminButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminButtonActionPerformed
-        cardLayout.show(mainPanel, "adminCard");
-    }//GEN-LAST:event_adminButtonActionPerformed
 
     private void logoutButtonUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonUserActionPerformed
         cardLayout.show(mainPanel, "loginCard");
@@ -1268,6 +1524,7 @@ public class DogView extends javax.swing.JFrame {
                     );
                 } else {
                     controller.loadDataToTable(dogTable);
+                    controller.loadDeletionHistoryToTable(deletedDogTable);
 
                     JOptionPane.showMessageDialog(
                             this,
@@ -1505,6 +1762,34 @@ public class DogView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_searchDogButtonActionPerformed
 
+    private void clearAdoptionHistoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearAdoptionHistoryButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_clearAdoptionHistoryButtonActionPerformed
+
+    private void clearDeleteHistoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearDeleteHistoryButtonActionPerformed
+        controller.clearHistory();
+        controller.loadDeletionHistoryToTable(deletedDogTable);
+
+    }//GEN-LAST:event_clearDeleteHistoryButtonActionPerformed
+
+    private void undoDeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_undoDeleteButtonActionPerformed
+        controller.undoLastDeletion();
+        controller.loadDataToTable(dogTable);
+        controller.loadDeletionHistoryToTable(deletedDogTable);
+    }//GEN-LAST:event_undoDeleteButtonActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPasswordField1ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
     private void errorFieldFocus(JTextField field, JLabel errorLabel, String message) {
         field.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
         if (errorLabel != null) {
@@ -1697,16 +1982,26 @@ public class DogView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addDogButton;
-    private javax.swing.JButton adminButton;
+    private javax.swing.JLabel addedTodayCountLabel;
+    private javax.swing.JLabel addedTodayLabel;
+    private javax.swing.JPanel addedTodayPanel;
     private javax.swing.JPanel adminPanel;
+    private javax.swing.JScrollPane adoptedDogScrollPane;
+    private javax.swing.JTable adoptedDogTable;
+    private javax.swing.JLabel adoptionAppointmentsCountLabel;
+    private javax.swing.JPanel adoptionAppointmentsPanel;
+    private javax.swing.JPanel adoptionHistoryTablePanel;
     private javax.swing.JComboBox<String> adoptionStatusComboBox;
     private javax.swing.JButton adoptionsButton;
+    private javax.swing.JLabel adoptionsLabel;
     private javax.swing.JPanel adoptionsPanel;
     private javax.swing.JLabel ageErrorLabel;
     private javax.swing.JPanel ageErrorPanel;
     private javax.swing.JLabel breedErrorLabel;
     private javax.swing.JPanel breedErrorPanel;
     private javax.swing.JButton cancelButton;
+    private javax.swing.JButton clearAdoptionHistoryButton;
+    private javax.swing.JButton clearDeleteHistoryButton;
     private javax.swing.JButton clearFieldsButton;
     private javax.swing.JLabel colorErrorLabel;
     private javax.swing.JPanel colorErrorPanel;
@@ -1714,6 +2009,9 @@ public class DogView extends javax.swing.JFrame {
     private javax.swing.JButton dashboardButton;
     private javax.swing.JPanel dashboardPanel;
     private javax.swing.JButton deleteFromListButton;
+    private javax.swing.JScrollPane deletedDogScrollPane;
+    private javax.swing.JTable deletedDogTable;
+    private javax.swing.JPanel deletionHistoryTablePanel;
     private javax.swing.JLabel dogAdoptionStatusLabel;
     private javax.swing.JTextField dogAgeField;
     private javax.swing.JLabel dogAgeLabel;
@@ -1741,11 +2039,14 @@ public class DogView extends javax.swing.JFrame {
     private javax.swing.JButton historyPanelButton;
     private javax.swing.JLabel idErrorLabel;
     private javax.swing.JPanel idErrorPanel;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel loginDetailsPanel;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JPanel kpiPanel;
     private javax.swing.JPanel loginPanel;
     private javax.swing.JLabel logoLabel;
     private javax.swing.JButton logoutButtonUser;
@@ -1765,9 +2066,15 @@ public class DogView extends javax.swing.JFrame {
     private javax.swing.JLabel sortLabel;
     private javax.swing.JComboBox<String> sortOptionCombo;
     private javax.swing.JPanel tablePanel;
+    private javax.swing.JLabel totalAdoptedCountLabel;
+    private javax.swing.JLabel totalAdoptedLabel;
+    private javax.swing.JPanel totalAdoptedPanel;
+    private javax.swing.JLabel totalDogsCountLabel;
+    private javax.swing.JLabel totalDogsLabel;
+    private javax.swing.JPanel totalDogsPanel;
+    private javax.swing.JButton undoDeleteButton;
     private javax.swing.JButton updateDogButton;
     private javax.swing.JButton uploadPhotoButton;
-    private javax.swing.JButton userButton;
     private javax.swing.JPanel userPanel;
     private javax.swing.JPanel usersManagementPanel;
     private javax.swing.JButton usersPanelButton;

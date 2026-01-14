@@ -7,6 +7,8 @@ package View;
 import Model.Dog;
 import Controller.DogController;
 import Controller.Search;
+import Model.User;
+import Controller.UserController;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.util.LinkedList;
@@ -16,6 +18,8 @@ import javax.accessibility.AccessibleAction;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import java.awt.Image;
+import java.awt.List;
+import java.util.HashMap;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -35,10 +39,11 @@ public class DogView extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DogView.class.getName());
     private CardLayout cardLayout, cardLayoutAdmin;
     private DogController controller;
+    private UserController userController;
+
     private Search search;
     private boolean isEditMode = false;
     private String selectedPhotoPath = null;
-
 
     /**
      * Creates new form DogView
@@ -46,6 +51,9 @@ public class DogView extends javax.swing.JFrame {
     public DogView() {
         controller = new DogController();
         controller.loadInitialData();
+
+        userController = new UserController();
+
         initComponents();
         setLocationRelativeTo(null);
         cardLayout = (CardLayout) mainPanel.getLayout();
@@ -70,15 +78,15 @@ public class DogView extends javax.swing.JFrame {
         userPanel = new javax.swing.JPanel();
         logoutButtonUser = new javax.swing.JButton();
         loginPanel = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
+        loginDetailsPanel = new javax.swing.JPanel();
         ImageIcon logoImg = new ImageIcon("src\\assets\\icons\\ps_logo_horizontal.png");
         Image scaledLogoImg = logoImg.getImage().getScaledInstance(250,140,Image.SCALE_SMOOTH);
-        jLabel1 = new javax.swing.JLabel(new ImageIcon(scaledLogoImg));
-        jTextField1 = new javax.swing.JTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        loginLogoLabel = new javax.swing.JLabel(new ImageIcon(scaledLogoImg));
+        loginUsernameField = new javax.swing.JTextField();
+        loginPasswordField = new javax.swing.JPasswordField();
+        loginButton = new javax.swing.JButton();
+        forgotPasswordButton = new javax.swing.JLabel();
+        instructionLabel = new javax.swing.JLabel();
         adminPanel = new javax.swing.JPanel();
         headerPanel = new javax.swing.JPanel();
         logoLabel = new javax.swing.JLabel();
@@ -204,74 +212,87 @@ public class DogView extends javax.swing.JFrame {
         loginPanel.setBackground(new java.awt.Color(250, 250, 255));
         loginPanel.setPreferredSize(new java.awt.Dimension(1200, 720));
 
-        jPanel1.setBackground(new java.awt.Color(250, 255, 253));
-        jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(90, 82, 102)));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        loginDetailsPanel.setBackground(new java.awt.Color(250, 255, 253));
+        loginDetailsPanel.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(90, 82, 102)));
+        loginDetailsPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setText("");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(56, 18, 250, 140));
+        loginLogoLabel.setText("");
+        loginDetailsPanel.add(loginLogoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(56, 18, 250, 140));
 
-        jTextField1.setBackground(new java.awt.Color(250, 255, 253));
-        jTextField1.setForeground(new java.awt.Color(0, 0, 0));
-        jTextField1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(90, 82, 102), 3), "Username", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Franklin Gothic Book", 0, 12), new java.awt.Color(90, 82, 102))); // NOI18N
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        loginUsernameField.setBackground(new java.awt.Color(250, 255, 253));
+        loginUsernameField.setFont(new java.awt.Font("Franklin Gothic Book", 0, 14)); // NOI18N
+        loginUsernameField.setForeground(new java.awt.Color(0, 0, 0));
+        loginUsernameField.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(90, 82, 102), 3), "Username", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Franklin Gothic Book", 0, 12), new java.awt.Color(90, 82, 102))); // NOI18N
+        loginUsernameField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                loginUsernameFieldActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 230, 311, 66));
+        loginDetailsPanel.add(loginUsernameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 230, 311, 66));
 
-        jPasswordField1.setBackground(new java.awt.Color(250, 255, 253));
-        jPasswordField1.setForeground(new java.awt.Color(255, 255, 255));
-        jPasswordField1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(90, 82, 102), 3), "Password", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(90, 82, 102))); // NOI18N
-        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+        loginPasswordField.setBackground(new java.awt.Color(250, 255, 253));
+        loginPasswordField.setFont(new java.awt.Font("Franklin Gothic Book", 0, 14)); // NOI18N
+        loginPasswordField.setForeground(new java.awt.Color(0, 0, 0));
+        loginPasswordField.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(90, 82, 102), 3), "Password", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(90, 82, 102))); // NOI18N
+        loginPasswordField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordField1ActionPerformed(evt);
+                loginPasswordFieldActionPerformed(evt);
             }
         });
-        jPanel1.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 300, 311, 68));
+        loginDetailsPanel.add(loginPasswordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 300, 311, 68));
 
-        jButton1.setBackground(new java.awt.Color(90, 82, 102));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Login");
-        jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(60, 63, 65), null, null));
-        jButton1.setBorderPainted(false);
-        jButton1.setFocusPainted(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        loginButton.setBackground(new java.awt.Color(90, 82, 102));
+        loginButton.setFont(new java.awt.Font("Franklin Gothic Demi Cond", 0, 18)); // NOI18N
+        loginButton.setForeground(new java.awt.Color(255, 255, 255));
+        loginButton.setText("Login");
+        loginButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(60, 63, 65), null, null));
+        loginButton.setBorderPainted(false);
+        loginButton.setFocusPainted(false);
+        loginButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                loginButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 420, 263, 52));
+        loginDetailsPanel.add(loginButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 420, 263, 52));
 
-        jLabel4.setBackground(new java.awt.Color(90, 82, 102));
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(90, 82, 102));
-        jLabel4.setText("Forgot your password?");
-        jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 372, -1, -1));
+        forgotPasswordButton.setBackground(new java.awt.Color(90, 82, 102));
+        forgotPasswordButton.setFont(new java.awt.Font("Franklin Gothic Book", 1, 14)); // NOI18N
+        forgotPasswordButton.setForeground(new java.awt.Color(90, 82, 102));
+        forgotPasswordButton.setText("Forgot your password?");
+        forgotPasswordButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        forgotPasswordButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                forgotPasswordButtonMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                forgotPasswordButtonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                forgotPasswordButtonMouseExited(evt);
+            }
+        });
+        loginDetailsPanel.add(forgotPasswordButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 372, -1, -1));
 
-        jLabel5.setBackground(new java.awt.Color(90, 82, 102));
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(90, 82, 102));
-        jLabel5.setText("Please fill the details below");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 200, -1, -1));
+        instructionLabel.setBackground(new java.awt.Color(90, 82, 102));
+        instructionLabel.setFont(new java.awt.Font("Franklin Gothic Demi", 1, 14)); // NOI18N
+        instructionLabel.setForeground(new java.awt.Color(90, 82, 102));
+        instructionLabel.setText("Please fill the details below");
+        loginDetailsPanel.add(instructionLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 200, -1, -1));
 
         javax.swing.GroupLayout loginPanelLayout = new javax.swing.GroupLayout(loginPanel);
         loginPanel.setLayout(loginPanelLayout);
         loginPanelLayout.setHorizontalGroup(
             loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginPanelLayout.createSequentialGroup()
-                .addContainerGap(468, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(393, 393, 393))
+                .addContainerGap(431, Short.MAX_VALUE)
+                .addComponent(loginDetailsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(430, 430, 430))
         );
         loginPanelLayout.setVerticalGroup(
             loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(loginPanelLayout.createSequentialGroup()
                 .addGap(109, 109, 109)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(loginDetailsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(131, Short.MAX_VALUE))
         );
 
@@ -1778,17 +1799,62 @@ public class DogView extends javax.swing.JFrame {
         controller.loadDeletionHistoryToTable(deletedDogTable);
     }//GEN-LAST:event_undoDeleteButtonActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
+        String username = loginUsernameField.getText().trim();
+        String password = new String(loginPasswordField.getPassword());
 
-    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jPasswordField1ActionPerformed
+        User user = userController.authenticate(username, password);
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        if (user == null) {
+            JOptionPane.showMessageDialog(this,
+                    userController.isUserBanned(username)
+                    ? "Account is banned!" : "Invalid credentials!",
+                    "Login Failed",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Login successful - switch panel based on role
+        CardLayout cl = (CardLayout) mainPanel.getLayout();
+
+        if ("ADMIN".equals(user.getRole())) {
+            cardLayout.show(mainPanel, "adminCard");
+        } else {
+            cardLayout.show(mainPanel, "userCard");
+        }
+
+        // Clear fields
+        loginUsernameField.setText("");
+        loginPasswordField.setText("");
+    }//GEN-LAST:event_loginButtonActionPerformed
+
+    private void loginPasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginPasswordFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_loginPasswordFieldActionPerformed
+
+    private void loginUsernameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginUsernameFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_loginUsernameFieldActionPerformed
+
+    private void forgotPasswordButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_forgotPasswordButtonMouseEntered
+        forgotPasswordButton.setForeground(Color.CYAN);
+    }//GEN-LAST:event_forgotPasswordButtonMouseEntered
+
+    private void forgotPasswordButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_forgotPasswordButtonMouseExited
+        forgotPasswordButton.setForeground(new Color(90, 82, 102));
+    }//GEN-LAST:event_forgotPasswordButtonMouseExited
+
+    private void forgotPasswordButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_forgotPasswordButtonMouseClicked
+        JOptionPane.showMessageDialog(this,
+                "username: admin    password: admin1234 \n"
+                + "username: user1    password: user1 \n"
+                + "username: user2    password: user2 \n"
+                + "username: user3    password: user3 \n"
+                + "username: user4    password: user4 \n"
+                + "username: user5    password: user5",
+                "Forgot Password - All Users",
+                JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_forgotPasswordButtonMouseClicked
 
     private void errorFieldFocus(JTextField field, JLabel errorLabel, String message) {
         field.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
@@ -2031,6 +2097,7 @@ public class DogView extends javax.swing.JFrame {
     private javax.swing.JPanel dogsPanel;
     private javax.swing.JButton dogsPanelButton;
     private javax.swing.JRadioButton femaleRadioButton;
+    private javax.swing.JLabel forgotPasswordButton;
     private javax.swing.JPanel formDetailsPanel;
     private javax.swing.ButtonGroup genderButtonGroup;
     private javax.swing.JPanel genderPanel;
@@ -2039,15 +2106,14 @@ public class DogView extends javax.swing.JFrame {
     private javax.swing.JButton historyPanelButton;
     private javax.swing.JLabel idErrorLabel;
     private javax.swing.JPanel idErrorPanel;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel instructionLabel;
     private javax.swing.JPanel kpiPanel;
+    private javax.swing.JButton loginButton;
+    private javax.swing.JPanel loginDetailsPanel;
+    private javax.swing.JLabel loginLogoLabel;
     private javax.swing.JPanel loginPanel;
+    private javax.swing.JPasswordField loginPasswordField;
+    private javax.swing.JTextField loginUsernameField;
     private javax.swing.JLabel logoLabel;
     private javax.swing.JButton logoutButtonUser;
     private javax.swing.JPanel mainPanel;

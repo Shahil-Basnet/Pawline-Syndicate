@@ -166,6 +166,40 @@ public class DogController {
         table.repaint();
     }
 
+    public void loadToUserDogTable(JTable table) {
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.setRowCount(0); // Clear existing
+
+        for (Dog dog : dogList) {
+            // Add only name, breed, age, color + button placeholder
+            model.addRow(new Object[]{
+                dog.getId(),
+                dog.getName(),
+                dog.getBreed(),
+                dog.getAge(), // Integer for proper sorting
+                dog.getColor(),
+                "View" // Button placeholder
+            });
+        }
+        table.repaint();
+    }
+    public void loadToUserDogTable(JTable table, LinkedList<Dog> SearchedDogList) {
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.setRowCount(0);
+        for (Dog dog : SearchedDogList) {
+            // Add only name, breed, age, color + button placeholder
+            model.addRow(new Object[]{
+                dog.getId(),
+                dog.getName(),
+                dog.getBreed(),
+                dog.getAge(), // Integer for proper sorting
+                dog.getColor(),
+                "View" // Button placeholder
+            });
+        }
+        table.repaint();
+    }
+
     /**
      * Validates details "Dog" object Checks if the dogId exists in the
      * linkedList.
@@ -211,6 +245,10 @@ public class DogController {
             }
         }
         return results;
+    }
+
+    public LinkedList<Dog> searchDogsByBreed(String breed) {
+        return Search.linearSearchByBreed(dogList, breed);
     }
 
     public LinkedList<Dog> searchDogById(String id) {

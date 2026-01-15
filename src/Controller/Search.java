@@ -28,6 +28,23 @@ public class Search {
         }
         return null;
     }
+    
+    /**
+     * Search for dog by name
+     *
+     * @param dogs LinkedList of dogs to search
+     * @param targetBreed Name to search for
+     * @return Dog if found, null otherwise
+     */
+    public static LinkedList<Dog> linearSearchByBreed(LinkedList<Dog> dogs, String targetBreed) {
+        LinkedList<Dog> results = new LinkedList<>();
+        for (Dog dog : dogs) {
+            if (dog.getBreed().equalsIgnoreCase(targetBreed)) {
+                results.add(dog);
+            }
+        }
+        return results;
+    }
 
     /**
      * Search for dog by ID
@@ -35,7 +52,7 @@ public class Search {
      * search
      *
      * @param dogs LinkedList of dogs (should be sorted by ID)
-     * @param name ID to search for
+     * @param targetId ID to search for
      * @return Dog if found, null otherwise
      */
     public static Dog binarySearchById(LinkedList<Dog> dogs, String targetId)

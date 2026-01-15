@@ -22,11 +22,11 @@ public class DogController {
     Stack stack1 = new Stack(15);
 
     public void loadInitialData() {
-        dogList.add(new Dog(1, "Buddy", "Golden Retriever", "Unadopted", 3, "Male", 30.5f, "Golden", ""));
-        dogList.add(new Dog(2, "Bella", "Labrador", "Adopted", 2, "Female", 25.0f, "Black", ""));
-        dogList.add(new Dog(3, "Charlie", "Beagle", "Unadopted", 4, "Male", 20.0f, "Brown", ""));
-        dogList.add(new Dog(4, "Max", "Bulldog", "Unadopted", 5, "Male", 35.0f, "Brindle", ""));
-        dogList.add(new Dog(5, "Daisy", "Poodle", "Unadopted", 2, "Female", 22.0f, "White", ""));
+        dogList.add(new Dog(1, "Kale", "Golden Retriever", "Unadopted", 3, "Male", 4.5f, "Golden", "src\\assets\\dogImages\\Kale.jpg"));
+        dogList.add(new Dog(2, "Seti", "Labrador", "Unadopted", 2, "Female", 7.0f, "Black", ""));
+        dogList.add(new Dog(3, "Kirk", "Samoyed", "Unadopted", 4, "Male", 2.0f, "Brown", "src\\assets\\dogImages\\kirk.jpg"));
+        dogList.add(new Dog(4, "Goru", "Bulldog", "Unadopted", 5, "Male", 6.0f, "Brindle", "src\\assets\\dogImages\\goru.jpg"));
+        dogList.add(new Dog(5, "Kali", "Japanese spitz", "Unadopted", 2, "Female", 2.0f, "White", ""));
 
     }
 
@@ -63,7 +63,7 @@ public class DogController {
         }
         return false;
     }
-    
+
     public boolean undoLastDeletion() {
         Dog lastDeleted = stack1.pop(); // Get most recent deletion
         if (lastDeleted != null) {
@@ -233,11 +233,45 @@ public class DogController {
         return results;
     }
 
-    public int getTotalDogs() {
-        return dogList.size();
+    public String getTotalDogs() {
+        return String.valueOf(dogList.size());
     }
-    
-    public void clearHistory(){
+
+    public LinkedList<Dog> getAllDogs() {
+        return dogList;
+    }
+
+    public void clearHistory() {
         stack1.clearHistory();
+    }
+
+    /**
+     * Count of unadopted dogs
+     *
+     * @return count of dogs with adoption status "Unadopted"
+     */
+    public String getUnadoptedDogsCount() {
+        int count = 0;
+        for (Dog dog : dogList) {
+            if ("Unadopted".equalsIgnoreCase(dog.getAdoptionStatus())) {
+                count++;
+            }
+        }
+        return String.valueOf(count);
+    }
+
+    /**
+     * Count of adopted dogs
+     *
+     * @return count of dogs with adoption status "Adopted"
+     */
+    public String getAdoptedDogsCount() {
+        int count = 0;
+        for (Dog dog : dogList) {
+            if ("Adopted".equalsIgnoreCase(dog.getAdoptionStatus())) {
+                count++;
+            }
+        }
+        return String.valueOf(count);
     }
 }

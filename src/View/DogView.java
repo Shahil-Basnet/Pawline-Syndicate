@@ -211,7 +211,6 @@ public class DogView extends javax.swing.JFrame {
         navigationPanel = new javax.swing.JPanel();
         dashboardButton = new javax.swing.JButton();
         dogsPanelButton = new javax.swing.JButton();
-        usersPanelButton = new javax.swing.JButton();
         adoptionsButton = new javax.swing.JButton();
         historyPanelButton = new javax.swing.JButton();
         contentPanel = new javax.swing.JPanel();
@@ -522,7 +521,6 @@ public class DogView extends javax.swing.JFrame {
 
         welcomeMessageLabel.setFont(new java.awt.Font("Franklin Gothic Book", 0, 18)); // NOI18N
         welcomeMessageLabel.setForeground(new java.awt.Color(0, 0, 0));
-        welcomeMessageLabel.setText("BLA BLA BLA BLA BLA");
 
         welcomeTitleLabel.setFont(new java.awt.Font("Franklin Gothic Demi", 0, 28)); // NOI18N
         welcomeTitleLabel.setForeground(new java.awt.Color(0, 0, 0));
@@ -584,7 +582,7 @@ public class DogView extends javax.swing.JFrame {
                 .addComponent(welcomeMessageLabel)
                 .addGap(9, 9, 9)
                 .addComponent(homePhotoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addComponent(viewMoreButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -1356,6 +1354,7 @@ public class DogView extends javax.swing.JFrame {
 
         logoLabel.setText("LOGO");
 
+        logoutButtonAdmin.setBackground(new java.awt.Color(44, 62, 80));
         logoutButtonAdmin.setText("Log out");
         logoutButtonAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1417,17 +1416,6 @@ public class DogView extends javax.swing.JFrame {
             }
         });
 
-        usersPanelButton.setBackground(new java.awt.Color(44, 62, 80));
-        usersPanelButton.setFont(new java.awt.Font("Franklin Gothic Book", 0, 14)); // NOI18N
-        usersPanelButton.setForeground(new java.awt.Color(220, 220, 220));
-        usersPanelButton.setText("Users");
-        usersPanelButton.setPreferredSize(new java.awt.Dimension(200, 60));
-        usersPanelButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                usersPanelButtonActionPerformed(evt);
-            }
-        });
-
         adoptionsButton.setBackground(new java.awt.Color(44, 62, 80));
         adoptionsButton.setFont(new java.awt.Font("Franklin Gothic Book", 0, 14)); // NOI18N
         adoptionsButton.setForeground(new java.awt.Color(220, 220, 220));
@@ -1456,7 +1444,6 @@ public class DogView extends javax.swing.JFrame {
             navigationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(dashboardButton, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(dogsPanelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(usersPanelButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(historyPanelButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(adoptionsButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
@@ -1467,11 +1454,9 @@ public class DogView extends javax.swing.JFrame {
                 .addComponent(dashboardButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
                 .addComponent(dogsPanelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3)
-                .addComponent(usersPanelButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(adoptionsButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(historyPanelButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -1673,6 +1658,7 @@ public class DogView extends javax.swing.JFrame {
         tablePanel.setPreferredSize(new java.awt.Dimension(800, 640));
         tablePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        dogTable.setFont(new java.awt.Font("Franklin Gothic Book", 0, 12)); // NOI18N
         dogTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
@@ -1865,7 +1851,7 @@ public class DogView extends javax.swing.JFrame {
         dogBreedLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         dogBreedLabel.setForeground(new java.awt.Color(0, 0, 0));
         dogBreedLabel.setText("Breed");
-        formDetailsPanel.add(dogBreedLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 71, -1));
+        formDetailsPanel.add(dogBreedLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 71, -1));
 
         breedErrorPanel.setBackground(new java.awt.Color(236, 240, 241));
         breedErrorPanel.setLayout(new java.awt.BorderLayout());
@@ -1928,7 +1914,7 @@ public class DogView extends javax.swing.JFrame {
         dogGenderLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         dogGenderLabel.setForeground(new java.awt.Color(0, 0, 0));
         dogGenderLabel.setText("Gender");
-        formDetailsPanel.add(dogGenderLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 150, 71, -1));
+        formDetailsPanel.add(dogGenderLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 160, 71, -1));
 
         genderPanel.setBackground(new java.awt.Color(236, 240, 241));
 
@@ -2404,10 +2390,6 @@ public class DogView extends javax.swing.JFrame {
         currentUser = null;
         cardLayout.show(mainPanel, "loginCard");
     }//GEN-LAST:event_logoutButtonUserActionPerformed
-
-    private void usersPanelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usersPanelButtonActionPerformed
-        cardLayoutAdmin.show(contentPanel, "usersManagementCard");
-    }//GEN-LAST:event_usersPanelButtonActionPerformed
 
     private void historyPanelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historyPanelButtonActionPerformed
         cardLayoutAdmin.show(contentPanel, "historyCard");
@@ -4148,7 +4130,6 @@ public class DogView extends javax.swing.JFrame {
     private javax.swing.JLabel userSortLabel;
     private javax.swing.JComboBox<String> userSortOptionCombo;
     private javax.swing.JPanel usersManagementPanel;
-    private javax.swing.JButton usersPanelButton;
     private javax.swing.JButton viewMoreButton;
     private javax.swing.JButton viewPhotoButton;
     private javax.swing.JLabel weightErrorLabel;

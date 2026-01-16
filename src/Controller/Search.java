@@ -58,7 +58,7 @@ public class Search {
     public static Dog binarySearchById(LinkedList<Dog> dogs, String targetId)
             throws NumberFormatException {
 
-        int searchId = Integer.parseInt(targetId); // Convert once, not repeatedly
+        int searchId = Integer.parseInt(targetId); 
         int left = 0;
         int right = dogs.size() - 1;
 
@@ -68,7 +68,7 @@ public class Search {
             int midId = midDog.getId();
 
             if (midId == searchId) {
-                return midDog;  // Found!
+                return midDog;
             }
 
             if (midId < searchId) {

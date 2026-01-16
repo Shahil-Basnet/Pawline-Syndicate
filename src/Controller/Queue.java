@@ -7,7 +7,7 @@ package Controller;
 
 public class Queue {
 
-    private String[] queue;  // Changed from Activity[] to String[]
+    private String[] queue;
     private int front;
     private int rear;
     private int size;
